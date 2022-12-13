@@ -21,26 +21,26 @@ const Star = styled.span`
 export default function TitleCard() {
   return (
     <div
-      class="card col-4 col-sm-3 col-md-2 m-2"
+      className="card col-4 col-sm-3 col-md-2 m-2"
       style={{ fontFamily: 'Blomberg', padding: 0 }}
     >
       <Star>
         <FontAwesomeIcon icon={faStar} size="lg" />
       </Star>
       <img
-        src="https://www.placedespop.com/img/licences/thumbs/1001-pattes-disney-image_240x170.jpg"
-        alt="Card image cap"
+        src={process.env.PUBLIC_URL + '/images/thumbs/dragon-ball-thumb.webp'}
+        alt="Miniature Dragon Ball"
         className='card-img-top"'
         style={{ borderRadius: '3px 3px 0 0' }}
       />
-      <div class="card-body text-center">
+      <div className="card-body text-center">
         <img
-          src="https://www.placedespop.com/img/licences/thumbs/1001-pattes-disney-logo_0x48.png"
-          alt="Card image cap"
+          src={process.env.PUBLIC_URL + '/images/logos/dragon-ball-logo.webp'}
+          alt="Logo Dragon Ball"
         />
       </div>
-      <div class="card-footer text-center">
-        <small class="text-muted">1001 Pattes [Disney]</small>
+      <div className="card-footer text-center">
+        <small className="text-muted">Dragon Ball</small>
       </div>
     </div>
   )

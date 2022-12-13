@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 const Avatar = styled.div`
   width: 60px;
   height: 40px;
-  background-image: url(${process.env.PUBLIC_URL + '/aude-pop.png'});
+  background-image: url(${process.env.PUBLIC_URL + '/images/aude-pop.png'});
   -webkit-filter: drop-shadow(1px 1px 0 white) drop-shadow(-1px -1px 0 white);
   filter: drop-shadow(1px 1px 0 white) drop-shadow(-1px -1px 0 white);
   background-size: 100%;
@@ -17,7 +17,7 @@ const Avatar = styled.div`
 const Logo = styled.div`
   width: 150px;
   height: 40px;
-  background-image: url(${process.env.PUBLIC_URL + '/pop-book.png'});
+  background-image: url(${process.env.PUBLIC_URL + '/images/pop-book.png'});
   background-size: 100%;
   background-position: 0;
   background-repeat: no-repeat;

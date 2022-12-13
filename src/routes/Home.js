@@ -7,7 +7,8 @@ import TitleCard from '../components/TitleCard'
 import Footer from '../components/Footer'
 
 const Header = styled.div`
-  background-image: url('https://www.placedespop.com/img/licences/thumbs/twisted-sister-banniere_1280x0.jpg');
+  background-image: url('${process.env.PUBLIC_URL +
+  '/images/bannieres/dragon-ball-banniere.webp'}');
   background-size: contain;
   background-repeat: no-repeat;
   margin-top: 62px;
@@ -50,7 +51,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

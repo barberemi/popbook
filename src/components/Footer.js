@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Link, useLocation } from 'react-router-dom'
 
 const Pied = styled.footer`
   position: absolute;
@@ -14,7 +13,7 @@ const Pied = styled.footer`
 export default function Footer() {
   return (
     <Pied>
-      <div class="container">Bonjour</div>
+      <div className="container">Bonjour</div>
     </Pied>
   )
 }
