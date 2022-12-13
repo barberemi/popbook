@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-regular-svg-icons'
 
 const Star = styled.span`
-  i {
+  svg {
     right: 5px;
-    top: 15px;
+    top: 5px;
     position: absolute;
     color: #f9b337;
 
@@ -23,7 +25,7 @@ export default function TitleCard() {
       style={{ fontFamily: 'Blomberg', padding: 0 }}
     >
       <Star>
-        <i className="fa-regular fa-star fa-xl" />
+        <FontAwesomeIcon icon={faStar} size="lg" />
       </Star>
       <img
         src="https://www.placedespop.com/img/licences/thumbs/1001-pattes-disney-image_240x170.jpg"
