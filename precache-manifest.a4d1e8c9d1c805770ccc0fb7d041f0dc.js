@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c21c4df758b63dee11e0",
+    "revision": "e4999a6dbd6ece3785a8",
     "url": "/popbook/static/css/main.f09b72d5.chunk.css"
   },
   {
-    "revision": "c21c4df758b63dee11e0",
-    "url": "/popbook/static/js/main.c9ae46aa.chunk.js"
+    "revision": "e4999a6dbd6ece3785a8",
+    "url": "/popbook/static/js/main.d7c52d6a.chunk.js"
   },
   {
     "revision": "06024fab3d0f3580b564",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/popbook/static/media/Blomberg-8MKKZ.8124f797.otf"
   },
   {
-    "revision": "2ae64c1e93f398534cf74b13b9e943ad",
+    "revision": "aacdce08aab31412546f4e670a0844bd",
     "url": "/popbook/index.html"
   }
 ];
