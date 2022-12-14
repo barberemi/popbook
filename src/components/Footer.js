@@ -17,7 +17,7 @@ export default function Footer() {
             src={process.env.PUBLIC_URL + '/images/aude-pop.png'}
             height="60px"
             width="60px"
-            alt="Image Pop Aude"
+            alt="Pop Aude"
           />
           <div className="text-muted">
             <small>
