@@ -18,6 +18,8 @@ const Logo = styled.div`
   width: 150px;
   height: 40px;
   background-image: url(${process.env.PUBLIC_URL + '/images/pop-book.png'});
+  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
   background-size: 100%;
   background-position: 0;
   background-repeat: no-repeat;
@@ -31,7 +33,7 @@ export default function NavBar() {
     <header>
       <nav
         className="navbar fixed-top navbar-expand-md navbar-dark"
-        style={{ backgroundColor: '#563d7c' }}
+        style={{ backgroundColor: '#f9b337' }}
       >
         <div className="container-fluid">
           <Link to={`/`}>
@@ -50,7 +52,10 @@ export default function NavBar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarScroll">
-            <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll text-center">
+            <ul
+              className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll text-center fs-5"
+              style={{ fontFamily: 'Blomberg' }}
+            >
               <li className="nav-item">
                 <Link
                   to={`/`}
@@ -58,7 +63,7 @@ export default function NavBar() {
                     location.pathname === '/' ? 'active' : ''
                   }`}
                 >
-                  Titres
+                  TITRES
                 </Link>
               </li>
               <li className="nav-item">
@@ -68,7 +73,7 @@ export default function NavBar() {
                     location.pathname === '/acquired' ? 'active' : ''
                   }`}
                 >
-                  Acquis
+                  ACQUIS
                 </Link>
               </li>
               <li className="nav-item">
@@ -78,7 +83,7 @@ export default function NavBar() {
                     location.pathname === '/soon' ? 'active' : ''
                   }`}
                 >
-                  Prochainement
+                  PROCHAINEMENT
                 </Link>
               </li>
             </ul>
