@@ -13,14 +13,10 @@ export default function Footer() {
     <Pied className="mt-5">
       <div className="container">
         <div className="text-center">
-          <img
-            src={process.env.PUBLIC_URL + '/images/aude-pop.png'}
-            height="60px"
-            width="60px"
-          />
+          <img src={process.env.PUBLIC_URL + '/images/aude-pop.png'} height="60px" width="60px" />
           <div className="text-muted">
             <small>
-              Ce site n'appartient pas à l'entreprise Funko et n'est donc pas
+              Ce site n&apos;appartient pas à l&apos;entreprise Funko et n&apos;est donc pas
               <br />
               sponsorisé ni validé par Funko.
               <br />

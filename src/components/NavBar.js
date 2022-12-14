@@ -57,21 +57,14 @@ export default function NavBar() {
               style={{ fontFamily: 'Blomberg' }}
             >
               <li className="nav-item">
-                <Link
-                  to={`/`}
-                  className={`nav-link ${
-                    location.pathname === '/' ? 'active' : ''
-                  }`}
-                >
+                <Link to={`/`} className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
                   TITRES
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
                   to={`/acquired`}
-                  className={`nav-link ${
-                    location.pathname === '/acquired' ? 'active' : ''
-                  }`}
+                  className={`nav-link ${location.pathname === '/acquired' ? 'active' : ''}`}
                 >
                   ACQUIS
                 </Link>
@@ -79,9 +72,7 @@ export default function NavBar() {
               <li className="nav-item">
                 <Link
                   to={`/soon`}
-                  className={`nav-link ${
-                    location.pathname === '/soon' ? 'active' : ''
-                  }`}
+                  className={`nav-link ${location.pathname === '/soon' ? 'active' : ''}`}
                 >
                   PROCHAINEMENT
                 </Link>
