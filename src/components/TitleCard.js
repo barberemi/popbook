@@ -1,7 +1,16 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-regular-svg-icons'
+import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons'
+import { faStar as faSolidStar } from '@fortawesome/free-solid-svg-icons'
+
+const Card = styled.div`
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+  }
+`
 
 const Star = styled.span`
   svg {
@@ -18,30 +27,31 @@ const Star = styled.span`
   }
 `
 
-export default function TitleCard() {
+export default function TitleCard(props) {
   return (
-    <div
+    <Card
       className="card col-4 col-sm-3 col-md-2 m-2"
       style={{ fontFamily: 'Blomberg', padding: 0 }}
     >
       <Star>
-        <FontAwesomeIcon icon={faStar} size="lg" />
+        <FontAwesomeIcon icon={props.title.acquired ? faSolidStar : faRegularStar} size="lg" />
       </Star>
       <img
-        src={process.env.PUBLIC_URL + '/images/thumbs/dragon-ball-thumb.webp'}
-        alt="Miniature Dragon Ball"
+        src={process.env.PUBLIC_URL + '/images/thumbs/' + props.title.name + '-thumb.webp'}
+        alt={'Miniature' + props.title.label}
         className='card-img-top"'
         style={{ borderRadius: '3px 3px 0 0' }}
       />
       <div className="card-body text-center">
         <img
-          src={process.env.PUBLIC_URL + '/images/logos/dragon-ball-logo.webp'}
-          alt="Logo Dragon Ball"
+          src={process.env.PUBLIC_URL + '/images/logos/' + props.title.name + '-logo.webp'}
+          alt={'Logo' + props.title.label}
+          style={{ maxHeight: '40px', maxWidth: '150px' }}
         />
       </div>
       <div className="card-footer text-center">
-        <small className="text-muted">Dragon Ball</small>
+        <small className="text-muted">{props.title.label}</small>
       </div>
-    </div>
+    </Card>
   )
 }
