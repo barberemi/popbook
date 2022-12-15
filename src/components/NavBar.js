@@ -2,6 +2,11 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link, useLocation } from 'react-router-dom'
 
+const Navigation = styled.nav`
+  background-color: #f9b337;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 0.3);
+`
+
 const Avatar = styled.div`
   width: 60px;
   height: 40px;
@@ -31,10 +36,7 @@ export default function NavBar() {
 
   return (
     <header>
-      <nav
-        className="navbar fixed-top navbar-expand-md navbar-dark"
-        style={{ backgroundColor: '#f9b337' }}
-      >
+      <Navigation className="navbar fixed-top navbar-expand-md navbar-dark">
         <div className="container-fluid">
           <Link to={`/`}>
             <Avatar />
@@ -71,6 +73,14 @@ export default function NavBar() {
               </li>
               <li className="nav-item">
                 <Link
+                  to={`/wish`}
+                  className={`nav-link ${location.pathname === '/wish' ? 'active' : ''}`}
+                >
+                  SOUHAITS
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
                   to={`/soon`}
                   className={`nav-link ${location.pathname === '/soon' ? 'active' : ''}`}
                 >
@@ -79,7 +89,7 @@ export default function NavBar() {
               </li>
             </ul>
           </div>
-          <form className="d-flex col-md-4 col-sm-12 col-12">
+          <form className="d-flex col-12 col-sm-12 col-md-3 col-lg-4">
             <input
               className="form-control"
               type="search"
@@ -88,7 +98,7 @@ export default function NavBar() {
             />
           </form>
         </div>
-      </nav>
+      </Navigation>
     </header>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faSolidStar } from '@fortawesome/free-solid-svg-icons'
@@ -29,29 +30,32 @@ const Star = styled.span`
 
 export default function TitleCard(props) {
   return (
-    <Card
-      className="card col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 m-2"
-      style={{ fontFamily: 'Blomberg', padding: 0 }}
+    <Link
+      to={`/titles/${props.title.name}`}
+      style={{ textDecoration: 'none' }}
+      className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 m-2"
     >
-      <Star>
-        <FontAwesomeIcon icon={props.title.acquired ? faSolidStar : faRegularStar} size="lg" />
-      </Star>
-      <img
-        src={process.env.PUBLIC_URL + '/images/thumbs/' + props.title.name + '-thumb.webp'}
-        alt={'Miniature' + props.title.label}
-        className='card-img-top"'
-        style={{ borderRadius: '3px 3px 0 0' }}
-      />
-      <div className="card-body text-center">
+      <Card className="card" style={{ fontFamily: 'Blomberg', padding: 0 }}>
+        <Star>
+          <FontAwesomeIcon icon={props.title.acquired ? faSolidStar : faRegularStar} size="lg" />
+        </Star>
         <img
-          src={process.env.PUBLIC_URL + '/images/logos/' + props.title.name + '-logo.webp'}
-          alt={'Logo' + props.title.label}
-          style={{ maxHeight: '40px', maxWidth: '150px' }}
+          src={process.env.PUBLIC_URL + '/images/thumbs/' + props.title.name + '-thumb.webp'}
+          alt={'Miniature' + props.title.label}
+          className='"'
+          style={{ borderRadius: '3px 3px 0 0' }}
         />
-      </div>
-      <div className="card-footer text-center">
-        <small className="text-muted">{props.title.label}</small>
-      </div>
-    </Card>
+        <div className="card-body text-center">
+          <img
+            src={process.env.PUBLIC_URL + '/images/logos/' + props.title.name + '-logo.webp'}
+            alt={'Logo' + props.title.label}
+            style={{ maxHeight: '40px', maxWidth: '150px' }}
+          />
+        </div>
+        <div className="card-footer text-center">
+          <small className="text-muted">{props.title.label}</small>
+        </div>
+      </Card>
+    </Link>
   )
 }
