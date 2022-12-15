@@ -5,23 +5,23 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import Home from './routes/Home'
+import Title from './routes/Title'
 import Page404 from './routes/Page404'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Title />,
     errorElement: <Page404 />
   },
   {
     path: '/acquired',
-    element: <Home />,
+    element: <Title />,
     errorElement: <Page404 />
   },
   {
     path: '/soon',
-    element: <Home />,
+    element: <Title />,
     errorElement: <Page404 />
   }
 ])

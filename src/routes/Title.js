@@ -3,19 +3,24 @@ import NavBar from '../components/NavBar'
 import Banner from '../components/Banner'
 import ListingCards from '../components/ListingCards'
 import Footer from '../components/Footer'
+import styled from '@emotion/styled'
 
-export default function Home() {
+const Content = styled.div`
+  min-height: 100%;
+`
+
+export default function Title() {
   return (
     <>
       <NavBar />
 
-      <div className="container-fluid p-0">
+      <Content className="container-fluid p-0">
         <Banner
           h1="Trouvez vos figurines par titre"
           h2="Pour une recherche directement par le titre de votre serie preferee !"
         />
         <ListingCards type="titles" />
-      </div>
+      </Content>
 
       <Footer />
     </>

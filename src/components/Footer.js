@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 const Pied = styled.footer`
-  bottom: 0;
   width: 100%;
   background-color: #f5f5f5;
   border-top: solid 1px #d3d3d3;

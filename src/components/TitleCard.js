@@ -30,7 +30,7 @@ const Star = styled.span`
 export default function TitleCard(props) {
   return (
     <Card
-      className="card col-4 col-sm-3 col-md-2 m-2"
+      className="card col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 m-2"
       style={{ fontFamily: 'Blomberg', padding: 0 }}
     >
       <Star>
