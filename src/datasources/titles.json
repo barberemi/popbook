@@ -1,54 +1,13 @@
 {
     "hits": [
         {
-            "name": "dragon-ball",
-            "label": "Dragon Ball",
-            "acquired": true
-        },
-        {
             "name": "le-seigneur-des-anneaux",
             "label": "Le Seigneur des Anneaux",
             "acquired": false
-        },
-        {
+        },{
             "name": "dragon-ball",
             "label": "Dragon Ball",
             "acquired": true
-        },
-        {
-            "name": "le-seigneur-des-anneaux",
-            "label": "Le Seigneur des Anneaux",
-            "acquired": false
-        },
-        {
-            "name": "dragon-ball",
-            "label": "Dragon Ball",
-            "acquired": true
-        },
-        {
-            "name": "le-seigneur-des-anneaux",
-            "label": "Le Seigneur des Anneaux",
-            "acquired": false
-        },
-        {
-            "name": "dragon-ball",
-            "label": "Dragon Ball",
-            "acquired": true
-        },
-        {
-            "name": "le-seigneur-des-anneaux",
-            "label": "Le Seigneur des Anneaux",
-            "acquired": false
-        },
-        {
-            "name": "dragon-ball",
-            "label": "Dragon Ball",
-            "acquired": true
-        },
-        {
-            "name": "le-seigneur-des-anneaux",
-            "label": "Le Seigneur des Anneaux",
-            "acquired": false
         }
     ]
 }

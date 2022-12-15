@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import Template from './routes/Template'
 import Title from './routes/Title'
+import Acquired from './routes/Acquired'
 import Page404 from './routes/Page404'
 
 const router = createBrowserRouter([
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     errorElement: <Page404 />,
     children: [
       { path: '', element: <Title /> },
-      { path: 'acquired', element: <Title /> },
+      { path: 'acquired', element: <Acquired /> },
       { path: 'wish', element: <Title /> },
       { path: 'soon', element: <Title /> },
       { path: 'titles/:name', element: <Title /> }

@@ -1,14 +1,40 @@
 {
     "hits": [
         {
-            "name": "dragon-ball",
-            "label": "Dragon Ball",
+            "name": "le-seigneur-des-anneaux-635-elrond-1",
+            "label": "ELRDON",
+            "title": "le-seigneur-des-anneaux",
+            "num": "635",
+            "release_date": "Octobre 2018",
+            "funko_id": "33254",
             "acquired": true
         },
         {
-            "name": "le-seigneur-des-anneaux",
-            "label": "Le Seigneur des Anneaux",
-            "acquired": false
+            "name": "dragon-ball-265-shenron-25-cm-1",
+            "label": "SHENRON - 25 CM",
+            "title": "dragon-ball",
+            "num": "859",
+            "release_date": "Novembre 2020",
+            "funko_id": "50223",
+            "acquired": true
+        },
+        {
+            "name": "dragon-ball-812-hercule-1",
+            "label": "HERCULE",
+            "title": "dragon-ball",
+            "num": "812",
+            "release_date": "Juin 2020",
+            "funko_id": "47682",
+            "acquired": true
+        },
+        {
+            "name": "dragon-ball-vegeto-metallique-2",
+            "label": "VEGETO - METALLIQUE",
+            "title": "dragon-ball",
+            "num": "949",
+            "release_date": "Août 2021",
+            "funko_id": "55872",
+            "acquired": true
         }
     ]
 }
