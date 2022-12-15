@@ -48,8 +48,8 @@ export default function TitleCard(props) {
         <div className="card-body text-center">
           <img
             src={process.env.PUBLIC_URL + '/images/logos/' + props.title.name + '-logo.webp'}
+            className="img-fluid"
             alt={'Logo' + props.title.label}
-            style={{ maxHeight: '40px', maxWidth: '150px' }}
           />
         </div>
         <div className="card-footer text-center">
