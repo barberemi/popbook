@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import _ from 'lodash'
 import styled from '@emotion/styled'
+import moment from 'moment'
 
 import TitleCard from '../components/TitleCard'
 import CharacterCard from '../components/CharacterCard'
@@ -37,6 +38,11 @@ export default function ListingCards(props) {
             <LogoPop key="listing" /> en souhaits
           </>
         )}
+        {props.type === 'soon' && (
+          <>
+            <Strong>{titles.hits.length}</Strong> figurines <LogoPop key="listing" /> à venir
+          </>
+        )}
         {props.type === 'oneTitle' && props.title && (
           <>
             <div>
@@ -71,6 +77,23 @@ export default function ListingCards(props) {
         {props.type === 'wish' &&
           _.map(
             _.orderBy(_.filter(characters.hits, { wish: true }), ['title']),
+            (character, index) => (
+              <Fragment key={index}>
+                <CharacterCard character={character} displayLogo={true} />
+              </Fragment>
+            )
+          )}
+        {props.type === 'soon' &&
+          _.map(
+            _.orderBy(
+              _.filter(characters.hits, (character) => {
+                return (
+                  _.includes(character.release_date, '-00-') ||
+                  moment().isBefore(moment(character.release_date))
+                )
+              }),
+              ['title']
+            ),
             (character, index) => (
               <Fragment key={index}>
                 <CharacterCard character={character} displayLogo={true} />

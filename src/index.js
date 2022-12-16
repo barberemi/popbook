@@ -10,6 +10,7 @@ import Titles from './routes/Titles'
 import Title from './routes/Title'
 import Acquired from './routes/Acquired'
 import Wish from './routes/Wish'
+import Soon from './routes/Soon'
 import Page404 from './routes/Page404'
 
 const router = createBrowserRouter([
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       { path: 'acquired', element: <Acquired /> },
       { path: 'characters/:name', element: <Titles /> },
       { path: 'wish', element: <Wish /> },
-      { path: 'soon', element: <Titles /> }
+      { path: 'soon', element: <Soon /> }
     ]
   }
 ])
