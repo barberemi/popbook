@@ -51,18 +51,20 @@ export default function CharacterCard(props) {
           style={{ borderRadius: '3px 3px 0 0' }}
         />
         <div className="card-body">
-          <img
-            src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '-logo.webp'}
-            className="img-fluid"
-            alt={'Logo' + props.character.label}
-          />
+          {props.displayLogo && (
+            <img
+              src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '-logo.webp'}
+              className="img-fluid"
+              alt={'Logo ' + props.character.label}
+            />
+          )}
         </div>
         <div className="card-footer text-black">
           <small>
             {props.character.label}
             <br />
             <span className="text-muted">
-              <LogoPop key="listing" /> #{props.character.num}
+              <LogoPop key={props.character.num} /> #{props.character.num}
             </span>
           </small>
         </div>

@@ -9,11 +9,8 @@ export default function Acquired() {
       <Helmet>
         <title>Pop-Book - Acquis</title>
       </Helmet>
-      <Banner
-        h1="Vos figurines Pop"
-        h2="Pour visualiser toutes les figurines que vous possedez !"
-      />
-      <ListingCards type="character" />
+      <Banner h1="Les figurines Pop de Aude" h2="Pour visualiser toutes ses figurines !" />
+      <ListingCards type="acquired" />
     </>
   )
 }

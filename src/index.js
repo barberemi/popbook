@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import Template from './routes/Template'
+import Titles from './routes/Titles'
 import Title from './routes/Title'
 import Acquired from './routes/Acquired'
 import Page404 from './routes/Page404'
@@ -16,11 +17,12 @@ const router = createBrowserRouter([
     element: <Template />,
     errorElement: <Page404 />,
     children: [
-      { path: '', element: <Title /> },
+      { path: '', element: <Titles /> },
+      { path: 'titles/:name', element: <Title /> },
       { path: 'acquired', element: <Acquired /> },
-      { path: 'wish', element: <Title /> },
-      { path: 'soon', element: <Title /> },
-      { path: 'titles/:name', element: <Title /> }
+      { path: 'characters/:name', element: <Titles /> },
+      { path: 'wish', element: <Titles /> },
+      { path: 'soon', element: <Titles /> }
     ]
   }
 ])

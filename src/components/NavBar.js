@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import _ from 'lodash'
 import { Link, useLocation } from 'react-router-dom'
 
 const Navigation = styled.nav`
@@ -59,14 +60,23 @@ export default function NavBar() {
               style={{ fontFamily: 'Blomberg' }}
             >
               <li className="nav-item">
-                <Link to={`/`} className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+                <Link
+                  to={`/`}
+                  className={`nav-link ${
+                    location.pathname === '/' || _.includes(location.pathname, '/title')
+                      ? 'active'
+                      : ''
+                  }`}
+                >
                   TITRES
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
                   to={`/acquired`}
-                  className={`nav-link ${location.pathname === '/acquired' ? 'active' : ''}`}
+                  className={`nav-link ${
+                    _.includes(location.pathname, '/acquired') ? 'active' : ''
+                  }`}
                 >
                   ACQUIS
                 </Link>
@@ -74,7 +84,7 @@ export default function NavBar() {
               <li className="nav-item">
                 <Link
                   to={`/wish`}
-                  className={`nav-link ${location.pathname === '/wish' ? 'active' : ''}`}
+                  className={`nav-link ${_.includes(location.pathname, '/wish') ? 'active' : ''}`}
                 >
                   SOUHAITS
                 </Link>
@@ -82,7 +92,7 @@ export default function NavBar() {
               <li className="nav-item">
                 <Link
                   to={`/soon`}
-                  className={`nav-link ${location.pathname === '/soon' ? 'active' : ''}`}
+                  className={`nav-link ${_.includes(location.pathname, '/soon') ? 'active' : ''}`}
                 >
                   PROCHAINEMENT
                 </Link>

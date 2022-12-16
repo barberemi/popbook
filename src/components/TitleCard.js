@@ -27,7 +27,7 @@ export default function TitleCard(props) {
           <img
             src={process.env.PUBLIC_URL + '/images/logos/' + props.title.name + '-logo.webp'}
             className="img-fluid"
-            alt={'Logo' + props.title.label}
+            alt={'Logo ' + props.title.label}
           />
         </div>
         <div className="card-footer text-black">
