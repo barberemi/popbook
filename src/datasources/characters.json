@@ -5,36 +5,60 @@
             "label": "ELRDON",
             "title": "le-seigneur-des-anneaux",
             "num": "635",
-            "release_date": "Octobre 2018",
+            "release_date": "2018-10-01",
             "funko_id": "33254",
-            "acquired": true
+            "acquired": true,
+            "wish": false
         },
         {
             "name": "dragon-ball-265-shenron-25-cm-1",
             "label": "SHENRON - 25 CM",
             "title": "dragon-ball",
             "num": "859",
-            "release_date": "Novembre 2020",
+            "release_date": "2020-11-01",
             "funko_id": "50223",
-            "acquired": true
+            "acquired": true,
+            "wish": false
         },
         {
             "name": "dragon-ball-812-hercule-1",
             "label": "HERCULE",
             "title": "dragon-ball",
             "num": "812",
-            "release_date": "Juin 2020",
+            "release_date": "2020-06-01",
             "funko_id": "47682",
-            "acquired": true
+            "acquired": true,
+            "wish": false
         },
         {
             "name": "dragon-ball-vegeto-metallique-2",
             "label": "VEGETO - METALLIQUE",
             "title": "dragon-ball",
             "num": "949",
-            "release_date": "Août 2021",
+            "release_date": "2021-08-01",
             "funko_id": "55872",
-            "acquired": false
+            "acquired": false,
+            "wish": true
+        },
+        {
+            "name": "dragon-ball-1280-jiren-1",
+            "label": "JIREN",
+            "title": "dragon-ball",
+            "num": "1280",
+            "release_date": "2023-00-01",
+            "funko_id": "",
+            "acquired": false,
+            "wish": true
+        },
+        {
+            "name": "le-seigneur-des-anneaux-1295-smeagol-2",
+            "label": "SMEAGOL",
+            "title": "le-seigneur-des-anneaux",
+            "num": "1295",
+            "release_date": "2023-03-01",
+            "funko_id": "69190",
+            "acquired": false,
+            "wish": false
         }
     ]
 }

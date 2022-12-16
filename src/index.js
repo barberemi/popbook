@@ -9,6 +9,7 @@ import Template from './routes/Template'
 import Titles from './routes/Titles'
 import Title from './routes/Title'
 import Acquired from './routes/Acquired'
+import Wish from './routes/Wish'
 import Page404 from './routes/Page404'
 
 const router = createBrowserRouter([
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       { path: 'titles/:name', element: <Title /> },
       { path: 'acquired', element: <Acquired /> },
       { path: 'characters/:name', element: <Titles /> },
-      { path: 'wish', element: <Titles /> },
+      { path: 'wish', element: <Wish /> },
       { path: 'soon', element: <Titles /> }
     ]
   }

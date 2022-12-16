@@ -31,6 +31,12 @@ export default function ListingCards(props) {
             figurines <LogoPop key="listing" />
           </>
         )}
+        {props.type === 'wish' && (
+          <>
+            Aude a <Strong>{_.filter(characters.hits, { wish: true }).length}</Strong> figurines{' '}
+            <LogoPop key="listing" /> en souhaits
+          </>
+        )}
         {props.type === 'oneTitle' && props.title && (
           <>
             <div>
@@ -56,6 +62,15 @@ export default function ListingCards(props) {
         {props.type === 'acquired' &&
           _.map(
             _.orderBy(_.filter(characters.hits, { acquired: true }), ['title']),
+            (character, index) => (
+              <Fragment key={index}>
+                <CharacterCard character={character} displayLogo={true} />
+              </Fragment>
+            )
+          )}
+        {props.type === 'wish' &&
+          _.map(
+            _.orderBy(_.filter(characters.hits, { wish: true }), ['title']),
             (character, index) => (
               <Fragment key={index}>
                 <CharacterCard character={character} displayLogo={true} />
