@@ -9,9 +9,5 @@ const Titre = styled.h4`
 `
 
 export default function StyledH2(props) {
-  return (
-    <i>
-      <Titre>{props.value}</Titre>
-    </i>
-  )
+  return <Titre>{props.value}</Titre>
 }
