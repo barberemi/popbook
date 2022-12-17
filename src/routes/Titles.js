@@ -15,7 +15,7 @@ export default function Titles() {
         h1="Trouvez vos figurines par titre"
         h2="Pour une recherche directement par le titre de votre serie preferee !"
       />
-      <ListingCards type="titles" data={_.orderBy(titles.hits, ['label'])} />
+      <ListingCards type="titles" data={_.orderBy(titles.hits, ['label'])} addMarginTop={true} />
     </>
   )
 }

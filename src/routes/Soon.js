@@ -25,6 +25,7 @@ export default function Soon() {
           }),
           ['title']
         )}
+        addMarginTop={true}
       />
     </>
   )

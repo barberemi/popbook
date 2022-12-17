@@ -15,6 +15,7 @@ export default function Acquired() {
       <ListingCards
         type="acquired"
         data={_.orderBy(_.filter(characters.hits, { acquired: true }), ['title'])}
+        addMarginTop={true}
       />
     </>
   )

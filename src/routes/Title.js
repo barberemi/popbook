@@ -5,23 +5,28 @@ import _ from 'lodash'
 import { Helmet } from 'react-helmet'
 import Banner from '../components/Banner'
 import ListingCards from '../components/ListingCards'
+import TitleThread from '../components/TitleThread'
 import characters from '../datasources/characters.json'
 
 export default function Titles() {
   const { name } = useParams()
-  let { title } = _.find(characters.hits, { title: name })
-  title = _.upperFirst(_.replace(title, new RegExp('-', 'g'), ' '))
+  const { title } = _.find(characters.hits, { title: name })
+  const titleRegex = _.upperFirst(_.replace(title, new RegExp('-', 'g'), ' '))
 
   return (
     <>
       <Helmet>
-        <title>Pop-Book - {title}</title>
+        <title>Pop-Book - {titleRegex}</title>
       </Helmet>
-      <Banner h1={title} h2="Trouvez la figurine de vos reves" banner={name} />
+      <Banner h1={titleRegex} h2="Trouvez la figurine de vos reves" banner={name} />
+      <div className="container mt-4">
+        <TitleThread name={name} titleRegex={titleRegex} />
+      </div>
       <ListingCards
         type="oneTitle"
         title={name}
         data={_.orderBy(_.filter(characters.hits, { title: name }), ['title'])}
+        addMarginTop={false}
       />
     </>
   )

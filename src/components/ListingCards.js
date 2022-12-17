@@ -13,7 +13,7 @@ const Strong = styled.strong`
 
 export default function ListingCards(props) {
   return (
-    <div className="container mt-4">
+    <div className={`container ${props.addMarginTop ? 'mt-4' : ''}`}>
       <div className="mb-3 text-center">
         {props.type === 'titles' && (
           <>

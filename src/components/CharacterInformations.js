@@ -5,6 +5,7 @@ import moment from 'moment'
 import 'moment/locale/fr'
 
 import LogoPop from '../components/LogoPop'
+import { Link } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendar, faFolderOpen } from '@fortawesome/free-regular-svg-icons'
@@ -26,11 +27,13 @@ export default function TallCharacterCard(props) {
       }}
     >
       <div style={{ textAlign: 'center', paddingBottom: '10px' }}>
-        <img
-          src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '-logo.webp'}
-          alt={'Logo ' + props.character.title}
-          style={{ maxWidth: '140px', maxHeight: '50px' }}
-        />
+        <Link to={`/titles/${props.character.title}`}>
+          <img
+            src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '-logo.webp'}
+            alt={'Logo ' + props.character.title}
+            style={{ maxWidth: '140px', maxHeight: '50px' }}
+          />
+        </Link>
       </div>
       <Titre>
         <span className="badge text-bg-warning text-white">{props.character.label}</span>

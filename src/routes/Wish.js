@@ -18,6 +18,7 @@ export default function Acquired() {
       <ListingCards
         type="wish"
         data={_.orderBy(_.filter(characters.hits, { wish: true }), ['title'])}
+        addMarginTop={true}
       />
     </>
   )

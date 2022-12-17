@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet'
 import Banner from '../components/Banner'
 import TallCharacterCard from '../components/TallCharacterCard'
 import CharacterInformations from '../components/CharacterInformations'
+import CharacterThread from '../components/CharacterThread'
 import characters from '../datasources/characters.json'
 
 export default function Character() {
@@ -23,9 +24,12 @@ export default function Character() {
         h2={`Figurine ${character.label} dans l'univers ${titleRegex}`}
         banner={character.title}
       />
-      <div className="container mt-4 d-flex justify-content-center">
-        <TallCharacterCard character={character} />
-        <CharacterInformations character={character} titleRegex={titleRegex} />
+      <div className="container mt-4">
+        <CharacterThread character={character} titleRegex={titleRegex} />
+        <div className="d-flex justify-content-center">
+          <TallCharacterCard character={character} />
+          <CharacterInformations character={character} titleRegex={titleRegex} />
+        </div>
       </div>
     </>
   )
