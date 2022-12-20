@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import _ from 'lodash'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import NavBarMenu from './NavBarMenu'
+import ResultBar from './ResultBar'
+import SearchForm from './SearchForm'
 
 const Navigation = styled.nav`
   background-color: #f9b337;
@@ -33,7 +35,7 @@ const Logo = styled.div`
 `
 
 export default function NavBar() {
-  const location = useLocation()
+  const [searchTerm, setSearchTerm] = useState('')
 
   return (
     <header>
@@ -55,58 +57,10 @@ export default function NavBar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarScroll">
-            <ul
-              className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll text-center fs-5"
-              style={{ fontFamily: 'Blomberg' }}
-            >
-              <li className="nav-item">
-                <Link
-                  to={`/`}
-                  className={`nav-link ${
-                    location.pathname === '/' || _.includes(location.pathname, '/title')
-                      ? 'active'
-                      : ''
-                  }`}
-                >
-                  TITRES
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to={`/acquired`}
-                  className={`nav-link ${
-                    _.includes(location.pathname, '/acquired') ? 'active' : ''
-                  }`}
-                >
-                  ACQUIS
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to={`/wish`}
-                  className={`nav-link ${_.includes(location.pathname, '/wish') ? 'active' : ''}`}
-                >
-                  SOUHAITS
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to={`/soon`}
-                  className={`nav-link ${_.includes(location.pathname, '/soon') ? 'active' : ''}`}
-                >
-                  PROCHAINEMENT
-                </Link>
-              </li>
-            </ul>
+            <NavBarMenu />
           </div>
-          <form className="d-flex col-12 col-sm-12 col-md-3 col-lg-4">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Rechercher titre/référence/nom de personnage..."
-              aria-label="Search"
-            />
-          </form>
+          <SearchForm setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+          <ResultBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
         </div>
       </Navigation>
     </header>

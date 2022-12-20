@@ -12,7 +12,7 @@ import characters from '../datasources/characters.json'
 export default function Character() {
   const { name } = useParams()
   const character = _.find(characters.hits, { name: name })
-  const titleRegex = _.upperFirst(_.replace(character.title, new RegExp('-', 'g'), ' '))
+  const titleRegex = _.upperCase(character.title)
 
   return (
     <>
