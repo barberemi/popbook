@@ -1,0 +1,11 @@
+{
+    "hits": [
+        {
+            "name": "le-seigneur-des-anneaux",
+            "label": "Le Seigneur des Anneaux"
+        },{
+            "name": "dragon-ball",
+            "label": "Dragon Ball"
+        }
+    ]
+}
