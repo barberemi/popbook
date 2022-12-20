@@ -37,7 +37,6 @@ const GlobaleBar = styled.div`
 const Listing = styled.ul`
   display: block;
   background-color: #fff;
-  border-radius: 0.375rem;
   padding: 0;
   margin: 0;
 `
