@@ -16,7 +16,13 @@ const getAllUrl = async (browser) => {
   //   )
 
   //   return result
-  return ['https://www.placedespop.com/figurines-funko-pop/halo/02525-master-chief-1/7293']
+  // return ['https://www.placedespop.com/figurines-funko-pop/halo/02525-master-chief-1/7293']
+  return [
+    'https://www.placedespop.com/figurines-funko-pop/mercredi/68293-mercredi-addams-diamant-1311/15246'
+  ]
+  // return [
+  //   'https://www.placedespop.com/figurines-funko-pop/21-jump-street/05308-greg-jenko-174/8898'
+  // ]
 }
 
 // 3 - Récupération du prix et du tarif d'un livre à partir d'une url (voir exo #2)
@@ -31,15 +37,79 @@ const getDataFromUrl = async (browser, url) => {
       )
       .id.split('/')
     let name = nameTitle[3]
-    let label = document.querySelector('.prodf-libelle').innerText.toUpperCase()
+    let label = document.querySelector('.prodf-libelle').firstChild.data.toUpperCase()
     let title = nameTitle[2]
     let num = document.querySelector('.prodf-num').innerText
-    // let release_date
     let funko_id = document.querySelector('span[itemprop="model"]').innerText
     let acquired = false
     let wish = false
+    let year = document.querySelector('span[itemprop="releaseDate"]').innerText
+    let month = document.querySelector('.prodf-infos > li:nth-child(3)').childNodes[1].data
+    let release_date = year + '-00-01'
 
-    return { name, label, title, num, funko_id, acquired, wish }
+    if (month) {
+      switch (month.trim()) {
+        case 'Janvier':
+        case 'janvier':
+          release_date = year + '-01-01'
+          break
+        case 'Février':
+        case 'Fevrier':
+        case 'février':
+        case 'fevrier':
+          release_date = year + '-02-01'
+          break
+        case 'Mars':
+        case 'mars':
+          release_date = year + '-03-01'
+          break
+        case 'Avril':
+        case 'avril':
+          release_date = year + '-04-01'
+          break
+        case 'Mai':
+        case 'mai':
+          release_date = year + '-05-01'
+          break
+        case 'Juin':
+        case 'juin':
+          release_date = year + '-06-01'
+          break
+        case 'Juillet':
+        case 'juillet':
+          release_date = year + '-07-01'
+          break
+        case 'Août':
+        case 'Aout':
+        case 'août':
+        case 'aout':
+          release_date = year + '-08-01'
+          break
+        case 'Septembre':
+        case 'septembre':
+          release_date = year + '-09-01'
+          break
+        case 'Octobre':
+        case 'octobre':
+          release_date = year + '-10-01'
+          break
+        case 'Novembre':
+        case 'novembre':
+          release_date = year + '-11-01'
+          break
+        case 'Décembre':
+        case 'Decembre':
+        case 'décembre':
+        case 'decembre':
+          release_date = year + '-12-01'
+          break
+        default:
+          release_date = year + '-00-01'
+          break
+      }
+    }
+
+    return { name, label, title, num, release_date, funko_id, acquired, wish }
   })
 }
 

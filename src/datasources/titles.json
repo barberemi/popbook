@@ -2,12 +2,10 @@
     "hits": [
         {
             "name": "le-seigneur-des-anneaux",
-            "label": "Le Seigneur des Anneaux",
-            "acquired": false
+            "label": "Le Seigneur des Anneaux"
         },{
             "name": "dragon-ball",
-            "label": "Dragon Ball",
-            "acquired": true
+            "label": "Dragon Ball"
         }
     ]
 }
