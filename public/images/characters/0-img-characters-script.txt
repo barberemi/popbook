@@ -1,1 +1,0 @@
-["wget -nc -cO - https://www.placedespop.com/img/produits/15246/thumbs/mercredi-1311-mercredi-addams-diamant-1-1667211180_0x460.jpg > 68293-mercredi-addams-diamant-1311.jpg"]

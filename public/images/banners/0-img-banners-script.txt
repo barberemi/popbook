@@ -1,1 +1,0 @@
-["wget -nc -cO - https://www.placedespop.com/img/licences/thumbs/mercredi-banniere_1280x0.jpg > mercredi.jpg"]
