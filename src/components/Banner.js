@@ -12,13 +12,14 @@ const Header = styled.div`
   height: 150px;
   background-color: #252525;
   background-position: right;
+  background-image: url('${process.env.PUBLIC_URL + '/images/banners/aude-banniere.webp'}');
   ${(props) =>
     props.banner &&
     css`
       background-image: url('${process.env.PUBLIC_URL +
       '/images/banners/' +
       props.banner +
-      '-banniere.webp'}');
+      '.jpg'}');
     `};
 
   @media (max-width: 992px) {
@@ -32,7 +33,7 @@ const Header = styled.div`
 
 export default function Banner(props) {
   return (
-    <Header className="col-sm-12 pt-4" banner={props.banner ?? 'aude'}>
+    <Header className="col-sm-12 pt-4" banner={props.banner ?? null}>
       <StyledH1 value={props.h1} />
       <StyledH2 value={props.h2} />
     </Header>

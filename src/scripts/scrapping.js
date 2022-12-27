@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer')
 const fs = require('fs')
 const _ = require('lodash')
 const knows_urls = require('../datasources/knows_urls.json')
+const new_urls = require('../datasources/new_urls.json')
+
 // 1 - Initialize arrays
 const banners = []
 const characters = []
@@ -24,40 +26,36 @@ const getAllUrl = async (browser) => {
   await page.waitForTimeout('body')
   const result = await page.evaluate(() =>
     [...document.querySelectorAll('div.contenu-texte > ul > li > a[href*="/figurines-funko-pop/"]')]
-      .filter(function (link) {
-        if (
-          !_.includes(link.href, 'liste-par-annee') &&
-          (link.href.match(/\//g) || []).length === 6
-        ) {
-          if (!_.includes(knows_urls, link.href)) {
-            new_urls.push(link.href)
-            return true
-          } else {
-            return false
-          }
-        } else {
-          return false
-        }
-      })
       .map((link) => link.href)
+      .filter(function (link) {
+        return !link.includes('liste-par-annee') && (link.match(/\//g) || []).length === 6
+      })
   )
 
-  if (new_urls.length !== 0) {
-    fs.writeFile(
-      '../datasources/new_urls.json',
-      JSON.stringify(new_urls),
-      {
-        encoding: 'utf8'
-      },
-      (err) => {
-        if (err) console.log(err)
-        else {
-          console.log('News characters urls :')
-          console.log(fs.readFileSync('../datasources/new_urls.json', 'utf8'))
-        }
+  // if (!knows_urls.includes(link.href)) {
+  //   new_urls.push(link.href)
+  //   return true
+  // } else {
+  //   return false
+  // }
+
+  // if (new_urls.length !== 0) {
+  fs.writeFile(
+    '../datasources/new_urls.json',
+    // JSON.stringify(new_urls),
+    JSON.stringify(result),
+    {
+      encoding: 'utf8'
+    },
+    (err) => {
+      if (err) console.log(err)
+      else {
+        console.log('News characters urls :')
+        console.log(fs.readFileSync('../datasources/new_urls.json', 'utf8'))
       }
-    )
-  }
+    }
+  )
+  // }
 
   return result
 }
@@ -65,6 +63,7 @@ const getAllUrl = async (browser) => {
 // 3 - Récupération des infos du personnage
 const getDataFromUrl = async (browser, url) => {
   const page = await browser.newPage()
+  await page.setDefaultNavigationTimeout(0)
   await page.goto(url)
   await page.waitForTimeout('body')
   const evaluate = await page.evaluate(() => {
@@ -84,8 +83,12 @@ const getDataFromUrl = async (browser, url) => {
     let label = document.querySelector('.prodf-libelle').firstChild.data.toUpperCase()
     let title = nameTitle[2]
     let title_label = document.querySelector('span[itemprop="category"]').innerText
-    let num = document.querySelector('.prodf-num').innerText
-    let funko_id = document.querySelector('span[itemprop="model"]').innerText
+    let num = document.querySelector('.prodf-num')
+      ? document.querySelector('.prodf-num').innerText
+      : null
+    let funko_id = document.querySelector('span[itemprop="model"]')
+      ? document.querySelector('span[itemprop="model"]').innerText
+      : null
     let acquired = false
     let wish = false
     let year = document.querySelector('span[itemprop="releaseDate"]').innerText
@@ -156,20 +159,25 @@ const getDataFromUrl = async (browser, url) => {
 
     let character =
       'wget -nc -cO - ' +
-      document.querySelector('span.lslide.active > img').src +
+      document.querySelector('.prodf-img > span > img').src +
       ' > ' +
       name +
       '.jpg'
     // let character =
     //   'wget static.thegeekstuff.com/wp-content/uploads/2009/10/15-wget-examples-300x257.png'
     let logo =
-      'wget -nc -cO - ' + document.querySelector('img.prodf-logo-img').src + ' > ' + title + '.jpg'
+      'wget -nc -cO - ' + document.querySelector('img.prodf-logo-img').src + ' > ' + title + '.png'
     // let logo = 'wget static.thegeekstuff.com/wp-content/uploads/2009/10/15-wget-examples-300x257.png'
     let banner =
       'wget -nc -cO - ' + document.querySelector('div.bans > img').src + ' > ' + title + '.jpg'
     // let banner = 'wget https://static.thegeekstuff.com/images/free-small.png'
     let thumb =
-      'wget -nc -cO - https://www.placedespop.com/img/licences/thumbs/' + ' > ' + title + '.png'
+      'wget -nc -cO - https://www.placedespop.com/img/licences/thumbs/' +
+      title +
+      '-image_240x170.jpg' +
+      ' > ' +
+      title +
+      '.jpg'
     // let thumb = 'wget https://static.thegeekstuff.com/images/free-small.png'
 
     return {
@@ -194,13 +202,19 @@ const getDataFromUrl = async (browser, url) => {
   banners.push(evaluate.banner)
   thumbs.push(evaluate.thumb)
 
+  console.log('Personnage :' + evaluate.name)
+
   return _.omit(evaluate, ['character', 'logo', 'banner', 'thumb'])
 }
 
 // 4 - Fonction principale : instanciation d'un navigateur et renvoi des résultats
 const scrap = async () => {
   const browser = await puppeteer.launch()
-  const urlList = await getAllUrl(browser)
+  // const urlList = await getAllUrl(browser)
+  const urlList = []
+  for (let i = 0; i < 100; i++) {
+    urlList.push(new_urls[i])
+  }
   const results = await Promise.all(urlList.map((url) => getDataFromUrl(browser, url)))
   browser.close()
 

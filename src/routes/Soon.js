@@ -19,7 +19,8 @@ export default function Soon() {
         data={_.orderBy(
           _.filter(characters.hits, (character) => {
             return (
-              _.includes(character.release_date, '-00-') ||
+              (_.includes(character.release_date, '-00-') &&
+                moment().isBefore(moment(_.replace(character.release_date, '-00-', '-01-')))) ||
               moment().isBefore(moment(character.release_date))
             )
           }),

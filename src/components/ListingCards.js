@@ -41,7 +41,7 @@ export default function ListingCards(props) {
           <>
             <div>
               <img
-                src={process.env.PUBLIC_URL + '/images/logos/' + props.title + '-logo.webp'}
+                src={process.env.PUBLIC_URL + '/images/logos/' + props.title + '.png'}
                 alt={'Logo ' + props.title}
                 style={{ maxWidth: '140px', maxHeight: '50px' }}
               />
@@ -53,9 +53,9 @@ export default function ListingCards(props) {
       </div>
       <div className="row justify-content-center">
         {props.type === 'titles' &&
-          _.map(props.data, (title, index) => (
+          _.map(props.data, (character, index) => (
             <Fragment key={index}>
-              <TitleCard title={title} />
+              <TitleCard title={character.title} title_label={character.title_label} />
             </Fragment>
           ))}
         {props.type === 'acquired' &&

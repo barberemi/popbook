@@ -33,7 +33,7 @@ const Star = styled.span`
 `
 
 const getLabelFromReleaseDate = (date) => {
-  if (_.includes(date, '-00-')) {
+  if (_.includes(date, '-00-') && moment().isBefore(moment(_.replace(date, '-00-', '-01-')))) {
     return 'Sortie ' + date.slice(0, 4)
   }
 
@@ -64,7 +64,7 @@ export default function CharacterCard(props) {
         )}
 
         <img
-          src={process.env.PUBLIC_URL + '/images/characters/' + props.character.name + '.webp'}
+          src={process.env.PUBLIC_URL + '/images/characters/' + props.character.name + '.jpg'}
           alt={'Miniature' + props.character.label}
           style={{ borderRadius: '3px 3px 0 0' }}
           className="p-2"
@@ -72,19 +72,25 @@ export default function CharacterCard(props) {
         {props.displayLogo && (
           <div className="card-body p-1">
             <img
-              src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '-logo.webp'}
-              className="img-fluid"
+              src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '.png'}
+              style={{ maxWidth: '150px', maxHeight: '38px' }}
               alt={'Logo ' + props.character.label}
             />
           </div>
         )}
         <div className="card-footer text-black">
           <small>
-            {props.character.label}
-            <br />
-            <span className="text-muted">
-              <LogoPop key={props.character.num} /> #{props.character.num}
-            </span>
+            {_.truncate(props.character.label, {
+              length: 25
+            })}
+            {props.character.num && (
+              <>
+                <br />
+                <span className="text-muted">
+                  <LogoPop key={props.character.num} /> #{props.character.num}
+                </span>
+              </>
+            )}
             {props.character.release_date && (
               <div className="fs-6" style={{ fontFamily: 'monospace' }}>
                 <span className="badge text-bg-warning">

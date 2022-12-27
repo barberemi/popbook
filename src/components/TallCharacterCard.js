@@ -34,7 +34,7 @@ export default function TallCharacterCard(props) {
       )}
 
       <img
-        src={process.env.PUBLIC_URL + '/images/characters/' + props.character.name + '.webp'}
+        src={process.env.PUBLIC_URL + '/images/characters/' + props.character.name + '.jpg'}
         alt={'Miniature' + props.character.label}
         style={{ borderRadius: '3px 3px 0 0', margin: 'auto 0' }}
         className="p-2"

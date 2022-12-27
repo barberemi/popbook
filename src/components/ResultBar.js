@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 
-import titles from '../datasources/titles.json'
 import characters from '../datasources/characters.json'
 
 const GlobaleBar = styled.div`
@@ -112,10 +111,10 @@ const SubTitle = styled.span`
 `
 
 export default function ResultBar({ searchTerm, setSearchTerm }) {
-  const filterTitles = (titles) => {
+  const filterTitles = (characters) => {
     return _.orderBy(
-      _.filter(titles.hits, (title) => {
-        return _.includes(_.upperCase(title.name), _.upperCase(searchTerm))
+      _.filter(_.uniqBy(characters.hits, 'title'), (character) => {
+        return _.includes(_.upperCase(character.title), _.upperCase(searchTerm))
       }),
       ['label']
     )
@@ -124,7 +123,10 @@ export default function ResultBar({ searchTerm, setSearchTerm }) {
   const filterCharacters = (characters) => {
     return _.orderBy(
       _.filter(characters.hits, (character) => {
-        return _.includes(_.upperCase(character.name), _.upperCase(searchTerm))
+        return (
+          _.includes(_.upperCase(character.name), _.upperCase(searchTerm)) ||
+          _.includes(_.upperCase(character.title), _.upperCase(searchTerm))
+        )
       }),
       ['label']
     )
@@ -133,22 +135,24 @@ export default function ResultBar({ searchTerm, setSearchTerm }) {
   return (
     <GlobaleBar className="col-11 col-sm-11 col-md-8 col-lg-7">
       <Listing>
-        {_.trim(searchTerm).length > 2 && filterTitles(titles).length > 0 && (
+        {_.trim(searchTerm).length > 2 && filterTitles(characters).length > 0 && (
           <>
             <Category>Titres</Category>
-            {_.map(_.take(filterTitles(titles), 2), (title, index) => (
-              <LinkStyle to={`/titles/${title.name}`} key={index} onClick={() => setSearchTerm('')}>
+            {_.map(_.take(filterTitles(characters), 2), (character, index) => (
+              <LinkStyle
+                to={`/titles/${character.title}`}
+                key={index}
+                onClick={() => setSearchTerm('')}
+              >
                 <li>
                   <div className="eac-item" style={{ wordBreak: 'break-all' }}>
                     <Result className="sf-result">
                       <CadreImage className="sfr-img">
                         <Image
-                          src={
-                            process.env.PUBLIC_URL + '/images/logos/' + title.name + '-logo.webp'
-                          }
+                          src={process.env.PUBLIC_URL + '/images/logos/' + character.title + '.png'}
                         />
                       </CadreImage>
-                      <Title className="sfr-titre">{title.label}</Title>
+                      <Title className="sfr-titre">{character.title_label}</Title>
                       <SubTitle className="sfr-stitre">Voir toutes les figurines</SubTitle>
                     </Result>
                   </div>
@@ -173,10 +177,7 @@ export default function ResultBar({ searchTerm, setSearchTerm }) {
                       <CadreImage className="sfr-img">
                         <Image
                           src={
-                            process.env.PUBLIC_URL +
-                            '/images/characters/' +
-                            character.name +
-                            '.webp'
+                            process.env.PUBLIC_URL + '/images/characters/' + character.name + '.jpg'
                           }
                         />
                       </CadreImage>

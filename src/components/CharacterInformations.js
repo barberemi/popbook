@@ -29,7 +29,7 @@ export default function TallCharacterCard(props) {
       <div style={{ textAlign: 'center', paddingBottom: '10px' }}>
         <Link to={`/titles/${props.character.title}`}>
           <img
-            src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '-logo.webp'}
+            src={process.env.PUBLIC_URL + '/images/logos/' + props.character.title + '.png'}
             alt={'Logo ' + props.character.title}
             style={{ maxWidth: '140px', maxHeight: '50px' }}
           />
@@ -69,12 +69,14 @@ export default function TallCharacterCard(props) {
         </div>
       </div>
 
-      <div className="d-flex">
-        <div style={{ width: '50px', textAlign: 'center' }}>
-          <LogoPop key={props.character.num} />
+      {props.character.num && (
+        <div className="d-flex">
+          <div style={{ width: '50px', textAlign: 'center' }}>
+            <LogoPop key={props.character.num} />
+          </div>
+          <div>{props.character.num}</div>
         </div>
-        <div>{props.character.num}</div>
-      </div>
+      )}
     </div>
   )
 }
