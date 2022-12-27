@@ -62,13 +62,26 @@ export default function CharacterCard(props) {
             <FontAwesomeIcon icon={faCircleCheck} size="lg" style={{ color: 'green' }} />
           </Star>
         )}
-
-        <img
-          src={process.env.PUBLIC_URL + '/images/characters/' + props.character.name + '.jpg'}
-          alt={'Miniature' + props.character.label}
-          style={{ borderRadius: '3px 3px 0 0' }}
-          className="p-2"
-        />
+        <div
+          style={{
+            width: '100%',
+            height: '220px',
+            padding: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          <img
+            src={process.env.PUBLIC_URL + '/images/characters/' + props.character.name + '.jpg'}
+            alt={'Miniature' + props.character.label}
+            style={{
+              maxWidth: '100%',
+              maxHeight: '200px',
+              margin: 'auto'
+            }}
+          />
+        </div>
         {props.displayLogo && (
           <div className="card-body p-1">
             <img
