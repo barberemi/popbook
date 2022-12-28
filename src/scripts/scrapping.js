@@ -5,10 +5,7 @@ const knows_urls = require('../datasources/knows_urls.json')
 const new_urls = require('../datasources/new_urls.json')
 
 // 1 - Initialize arrays
-const banners = []
-const characters = []
-const logos = []
-const thumbs = []
+const allScripts = []
 
 // 2 - Récupération des URLs de toutes les pages à visiter
 const getAllUrl = async (browser) => {
@@ -160,22 +157,30 @@ const getDataFromUrl = async (browser, url) => {
     let character =
       'wget -nc -cO - ' +
       document.querySelector('.prodf-img > span > img').src +
-      ' > ' +
+      ' > characters/' +
       name +
       '.jpg'
     // let character =
     //   'wget static.thegeekstuff.com/wp-content/uploads/2009/10/15-wget-examples-300x257.png'
     let logo =
-      'wget -nc -cO - ' + document.querySelector('img.prodf-logo-img').src + ' > ' + title + '.png'
+      'wget -nc -cO - ' +
+      document.querySelector('img.prodf-logo-img').src +
+      ' > logos/' +
+      title +
+      '.png'
     // let logo = 'wget static.thegeekstuff.com/wp-content/uploads/2009/10/15-wget-examples-300x257.png'
     let banner =
-      'wget -nc -cO - ' + document.querySelector('div.bans > img').src + ' > ' + title + '.jpg'
+      'wget -nc -cO - ' +
+      document.querySelector('div.bans > img').src +
+      ' > banners/' +
+      title +
+      '.jpg'
     // let banner = 'wget https://static.thegeekstuff.com/images/free-small.png'
     let thumb =
       'wget -nc -cO - https://www.placedespop.com/img/licences/thumbs/' +
       title +
       '-image_240x170.jpg' +
-      ' > ' +
+      ' > thumbs/' +
       title +
       '.jpg'
     // let thumb = 'wget https://static.thegeekstuff.com/images/free-small.png'
@@ -197,10 +202,10 @@ const getDataFromUrl = async (browser, url) => {
     }
   })
 
-  characters.push(evaluate.character)
-  logos.push(evaluate.logo)
-  banners.push(evaluate.banner)
-  thumbs.push(evaluate.thumb)
+  allScripts.push(evaluate.character)
+  allScripts.push(evaluate.logo)
+  allScripts.push(evaluate.banner)
+  allScripts.push(evaluate.thumb)
 
   console.log('Personnage :' + evaluate.name)
 
@@ -224,72 +229,22 @@ const scrap = async () => {
 // 5 - Appel la fonction `scrap()`, affichage les résulats et catch les erreurs
 scrap()
   .then((value) => {
-    // 5-1 : banners
+    // 5-1 : insert script download images
     fs.writeFile(
-      '../../public/images/banners/0-img-banners-script.txt',
-      JSON.stringify(_.uniq(banners)),
+      '../../public/images/0-script-download-images.txt',
+      JSON.stringify(_.uniq(allScripts)),
       {
         encoding: 'utf8'
       },
       (err) => {
         if (err) console.log(err)
         else {
-          console.log('News banners images :')
-          console.log(
-            fs.readFileSync('../../public/images/banners/0-img-banners-script.txt', 'utf8')
-          )
-        }
-      }
-    )
-    // 5-2 : characters
-    fs.writeFile(
-      '../../public/images/characters/0-img-characters-script.txt',
-      JSON.stringify(_.uniq(characters)),
-      {
-        encoding: 'utf8'
-      },
-      (err) => {
-        if (err) console.log(err)
-        else {
-          console.log('News characters images :')
-          console.log(
-            fs.readFileSync('../../public/images/characters/0-img-characters-script.txt', 'utf8')
-          )
-        }
-      }
-    )
-    // 5-3 : logos
-    fs.writeFile(
-      '../../public/images/logos/0-img-logos-script.txt',
-      JSON.stringify(_.uniq(logos)),
-      {
-        encoding: 'utf8'
-      },
-      (err) => {
-        if (err) console.log(err)
-        else {
-          console.log('News logos images :')
-          console.log(fs.readFileSync('../../public/images/logos/0-img-logos-script.txt', 'utf8'))
-        }
-      }
-    )
-    // 5-4 : thumbs
-    fs.writeFile(
-      '../../public/images/thumbs/0-img-thumbs-script.txt',
-      JSON.stringify(_.uniq(thumbs)),
-      {
-        encoding: 'utf8'
-      },
-      (err) => {
-        if (err) console.log(err)
-        else {
-          console.log('News thumbs images :')
-          console.log(fs.readFileSync('../../public/images/thumbs/0-img-thumbs-script.txt', 'utf8'))
+          console.log('News scripts : OK')
         }
       }
     )
 
-    // 5-5 : insert characters data
+    // 5-2 : insert characters data
     fs.writeFile(
       'new_characters.json',
       JSON.stringify(value),
@@ -299,8 +254,7 @@ scrap()
       (err) => {
         if (err) console.log(err)
         else {
-          console.log('Nouveaux characters ajoutes :')
-          console.log(fs.readFileSync('new_characters.json', 'utf8'))
+          console.log('Nouveaux characters ajoutes : OK')
         }
       }
     )
