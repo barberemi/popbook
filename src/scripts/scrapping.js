@@ -212,7 +212,7 @@ const scrap = async () => {
   const browser = await puppeteer.launch()
   // const urlList = await getAllUrl(browser)
   const urlList = []
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 200; i++) {
     urlList.push(new_urls[i])
   }
   const results = await Promise.all(urlList.map((url) => getDataFromUrl(browser, url)))
