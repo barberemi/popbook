@@ -1,1 +1,0 @@
-["wget -nc -cO - https://www.placedespop.com/img/licences/thumbs/fruits-basket-logo_0x80.png > logos/fruits-basket.png","wget -nc -cO - https://www.placedespop.com/img/licences/thumbs/fullmetal-alchemist-logo_0x80.png > logos/fullmetal-alchemist.png"]
