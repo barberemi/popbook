@@ -18,17 +18,11 @@ const Card = styled.div`
   }
 `
 
-const Star = styled.span`
+const Emote = styled.span`
   svg {
     right: 5px;
     top: 5px;
     position: absolute;
-
-    &:hover {
-      cursor: pointer;
-      font-size: 2em;
-      transition: 1s ease-out;
-    }
   }
 `
 
@@ -53,14 +47,14 @@ export default function CharacterCard(props) {
     >
       <Card className="card text-center" style={{ fontFamily: 'Blomberg', padding: 0 }}>
         {props.character.wish && (
-          <Star>
-            <FontAwesomeIcon icon={faRegularStar} size="lg" style={{ color: 'orange' }} />
-          </Star>
+          <Emote>
+            <FontAwesomeIcon icon={faRegularStar} size="xl" style={{ color: 'orange' }} />
+          </Emote>
         )}
         {props.character.acquired && (
-          <Star>
-            <FontAwesomeIcon icon={faCircleCheck} size="lg" style={{ color: 'green' }} />
-          </Star>
+          <Emote>
+            <FontAwesomeIcon icon={faCircleCheck} size="xl" style={{ color: 'green' }} />
+          </Emote>
         )}
         <div
           style={{

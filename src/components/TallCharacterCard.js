@@ -5,17 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons'
 import { faCircleCheck as faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
-const Star = styled.span`
+const Emote = styled.span`
   svg {
     right: 5px;
     top: 5px;
     position: absolute;
-
-    &:hover {
-      cursor: pointer;
-      font-size: 2em;
-      transition: 1s ease-out;
-    }
   }
 `
 
@@ -23,14 +17,14 @@ export default function TallCharacterCard(props) {
   return (
     <div className="card text-center col-6 col-sm-6 col-md-5 col-lg-4 col-xl-3 m-2">
       {props.character.wish && (
-        <Star>
-          <FontAwesomeIcon icon={faRegularStar} size="lg" style={{ color: 'orange' }} />
-        </Star>
+        <Emote>
+          <FontAwesomeIcon icon={faRegularStar} size="xl" style={{ color: 'orange' }} />
+        </Emote>
       )}
       {props.character.acquired && (
-        <Star>
-          <FontAwesomeIcon icon={faCircleCheck} size="lg" style={{ color: 'green' }} />
-        </Star>
+        <Emote>
+          <FontAwesomeIcon icon={faCircleCheck} size="xl" style={{ color: 'green' }} />
+        </Emote>
       )}
 
       <img

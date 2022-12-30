@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import _ from 'lodash'
 import moment from 'moment'
@@ -18,6 +18,35 @@ const Titre = styled.h3`
 `
 
 export default function TallCharacterCard(props) {
+  const [action, setAction] = useState('')
+  const [spinner, setSpinner] = useState(false)
+
+  async function handleSubmit(event) {
+    setSpinner(true)
+    event.preventDefault()
+
+    const champ = action === 'wish' ? props.character.wish : props.character.acquired
+
+    try {
+      await fetch(
+        '/.netlify/functions/update?name=' +
+          // 'http://localhost:9999/.netlify/functions/update?name=' +
+          props.character.name +
+          '&' +
+          action +
+          '=' +
+          !champ
+      ).then(function () {
+        setTimeout(() => {
+          setSpinner(false)
+        }, 1500)
+      })
+    } catch (error) {
+      console.error(error) // affiche l'erreur dans la console
+      setSpinner(false)
+    }
+  }
+
   return (
     <div
       style={{
@@ -75,6 +104,38 @@ export default function TallCharacterCard(props) {
             <LogoPop key={props.character.num} />
           </div>
           <div>{props.character.num}</div>
+        </div>
+      )}
+
+      {!spinner && (
+        <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+          {!props.character.acquired && (
+            <>
+              <button
+                type="submit"
+                className={`btn ${props.character.wish ? 'btn-danger' : 'btn-primary'}`}
+                onClick={() => setAction('wish')}
+              >
+                {props.character.wish ? 'Je ne le souhaite plus' : 'Je le souhaite ?'}
+              </button>
+              <br />
+            </>
+          )}
+          <button
+            type="submit"
+            className={`btn ${props.character.acquired ? 'btn-danger' : 'btn-success'}`}
+            onClick={() => setAction('acquired')}
+          >
+            {props.character.acquired ? 'Je ne le possède plus' : 'Je le possède ?'}
+          </button>
+        </form>
+      )}
+
+      {spinner && (
+        <div style={{ textAlign: 'center' }}>
+          <div className="spinner-border text-warning" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
         </div>
       )}
     </div>
