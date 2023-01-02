@@ -41,7 +41,7 @@ const getLabelFromReleaseDate = (date) => {
 export default function CharacterCard(props) {
   return (
     <Link
-      to={`/characters/${props.character.name}`}
+      to={`/characters/${props.character.title}/${props.character.name}`}
       style={{ textDecoration: 'none' }}
       className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 m-2"
     >
@@ -87,7 +87,7 @@ export default function CharacterCard(props) {
         )}
         <div className="card-footer text-black">
           <small>
-            {_.truncate(props.character.label, {
+            {_.truncate(_.upperCase(props.character.label), {
               length: 25
             })}
             {props.character.num && (

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import _ from 'lodash'
 
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,11 +25,11 @@ export default function CharacterThread(props) {
           to={`/titles/${props.character.title}`}
           className="text-decoration-none text-muted"
         >
-          {props.titleRegex}
+          {_.upperCase(props.character.title_label)}
         </StyledLink>{' '}
         <FontAwesomeIcon icon={faCaretRight} style={{ color: 'orange' }} />{' '}
         <StyledLink
-          to={`/characters/${props.character.name}`}
+          to={`/characters/${props.character.title}/${props.character.name}`}
           className="text-decoration-none text-muted"
         >
           #{props.character.num} {props.character.label}

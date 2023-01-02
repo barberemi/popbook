@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import _ from 'lodash'
 import moment from 'moment'
 import 'moment/locale/fr'
+import axios from 'axios'
 
 import LogoPop from '../components/LogoPop'
 import { Link } from 'react-router-dom'
@@ -19,31 +20,36 @@ const Titre = styled.h3`
 
 export default function TallCharacterCard(props) {
   const [action, setAction] = useState('')
-  const [spinner, setSpinner] = useState(false)
+  const [spinnerWish, setSpinnerWish] = useState(false)
+  const [spinnerAcquired, setSpinnerAcquired] = useState(false)
 
   async function handleSubmit(event) {
-    setSpinner(true)
     event.preventDefault()
 
     const champ = action === 'wish' ? props.character.wish : props.character.acquired
+    action === 'wish' ? setSpinnerWish(true) : setSpinnerAcquired(true)
 
     try {
-      await fetch(
-        '/.netlify/functions/update?name=' +
-          // 'http://localhost:9999/.netlify/functions/update?name=' +
-          props.character.name +
-          '&' +
-          action +
-          '=' +
-          !champ
-      ).then(function () {
-        setTimeout(() => {
-          setSpinner(false)
-        }, 1500)
-      })
+      await axios
+        .get(
+          // '/.netlify/functions/update?name=' +
+          'http://localhost:9999/.netlify/functions/update?name=' +
+            props.character.name +
+            '&' +
+            action +
+            '=' +
+            !champ
+        )
+        .then(function () {
+          setTimeout(() => {
+            setSpinnerWish(false)
+            setSpinnerAcquired(false)
+          }, 1500)
+        })
     } catch (error) {
       console.error(error) // affiche l'erreur dans la console
-      setSpinner(false)
+      setSpinnerWish(false)
+      setSpinnerAcquired(false)
     }
   }
 
@@ -72,7 +78,7 @@ export default function TallCharacterCard(props) {
         <div style={{ width: '50px', textAlign: 'center' }}>
           <FontAwesomeIcon icon={faFolderOpen} size="xl" style={{ color: 'orange' }} />
         </div>
-        <div>{props.titleRegex}</div>
+        <div>{_.upperCase(props.character.title_label)}</div>
       </div>
 
       {props.character.funko_id && (
@@ -107,37 +113,41 @@ export default function TallCharacterCard(props) {
         </div>
       )}
 
-      {!spinner && (
-        <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
-          {!props.character.acquired && (
+      <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+        {!props.character.acquired && (
+          <>
+            <button
+              type="submit"
+              className={`btn ${props.character.wish ? 'btn-danger' : 'btn-primary'}`}
+              onClick={() => setAction('wish')}
+            >
+              {spinnerWish && (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  />{' '}
+                </>
+              )}
+              {props.character.wish ? 'Je ne le souhaite plus' : 'Je le souhaite ?'}
+            </button>
+            <br />
+          </>
+        )}
+        <button
+          type="submit"
+          className={`btn ${props.character.acquired ? 'btn-danger' : 'btn-success'}`}
+          onClick={() => setAction('acquired')}
+        >
+          {spinnerAcquired && (
             <>
-              <button
-                type="submit"
-                className={`btn ${props.character.wish ? 'btn-danger' : 'btn-primary'}`}
-                onClick={() => setAction('wish')}
-              >
-                {props.character.wish ? 'Je ne le souhaite plus' : 'Je le souhaite ?'}
-              </button>
-              <br />
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />{' '}
             </>
           )}
-          <button
-            type="submit"
-            className={`btn ${props.character.acquired ? 'btn-danger' : 'btn-success'}`}
-            onClick={() => setAction('acquired')}
-          >
-            {props.character.acquired ? 'Je ne le possède plus' : 'Je le possède ?'}
-          </button>
-        </form>
-      )}
-
-      {spinner && (
-        <div style={{ textAlign: 'center' }}>
-          <div className="spinner-border text-warning" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      )}
+          {props.character.acquired ? 'Je ne le possède plus' : 'Je le possède ?'}
+        </button>
+      </form>
     </div>
   )
 }

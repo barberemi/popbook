@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       { path: '', element: <Titles /> },
       { path: 'titles/:name', element: <Title /> },
       { path: 'acquired', element: <Acquired /> },
-      { path: 'characters/:name', element: <Character /> },
+      { path: 'characters/:title/:name', element: <Character /> },
       { path: 'wish', element: <Wish /> },
       { path: 'soon', element: <Soon /> }
     ]

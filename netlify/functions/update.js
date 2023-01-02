@@ -7,7 +7,7 @@ exports.handler = async function (event, context) {
   // Récupérer les modifications à apporter au fichier JSON
   if (!_.isEmpty(event.queryStringParameters)) {
     // Lire le fichier JSON existant
-    const oldData = await fs.readFileSync('public/characters', 'utf8')
+    const oldData = await fs.readFileSync('public/characters.json', 'utf8')
 
     // Recuperation du character
     const jsonOldData = JSON.parse(oldData)
@@ -24,7 +24,7 @@ exports.handler = async function (event, context) {
     if (character.acquired) character.wish = false
 
     // Écrire le fichier JSON mis à jour
-    await fs.writeFileSync('public/characters', JSON.stringify(jsonOldData, null, 4))
+    await fs.writeFileSync('public/characters.json', JSON.stringify(jsonOldData, null, 4))
   }
 
   // Renvoyer une réponse au client indiquant que les modifications ont été effectuées avec succès ou non

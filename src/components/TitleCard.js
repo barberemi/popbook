@@ -33,7 +33,7 @@ export default function TitleCard(props) {
         </div>
         <div className="card-footer text-black">
           <small>
-            {_.truncate(props.title_label, {
+            {_.truncate(_.upperCase(props.title_label), {
               length: 25
             })}
           </small>

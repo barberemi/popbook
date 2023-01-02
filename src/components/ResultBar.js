@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
-
-import characters from '../datasources/characters.json'
+import axios from 'axios'
 
 const GlobaleBar = styled.div`
   top: 78px;
@@ -111,9 +110,17 @@ const SubTitle = styled.span`
 `
 
 export default function ResultBar({ searchTerm, setSearchTerm }) {
+  const [characters, setCharacters] = useState(null)
+
+  useEffect(() => {
+    axios.get(process.env.PUBLIC_URL + '/characters.json').then((response) => {
+      setCharacters(response.data.hits)
+    })
+  }, [])
+
   const filterTitles = (characters) => {
     return _.orderBy(
-      _.filter(_.uniqBy(characters.hits, 'title'), (character) => {
+      _.filter(_.uniqBy(characters, 'title'), (character) => {
         return _.includes(_.upperCase(character.title), _.upperCase(searchTerm))
       }),
       ['label']
@@ -122,7 +129,7 @@ export default function ResultBar({ searchTerm, setSearchTerm }) {
 
   const filterCharacters = (characters) => {
     return _.orderBy(
-      _.filter(characters.hits, (character) => {
+      _.filter(characters, (character) => {
         return (
           _.includes(_.upperCase(character.name), _.upperCase(searchTerm)) ||
           _.includes(_.upperCase(character.title), _.upperCase(searchTerm))
@@ -138,7 +145,7 @@ export default function ResultBar({ searchTerm, setSearchTerm }) {
         {_.trim(searchTerm).length > 2 && filterTitles(characters).length > 0 && (
           <>
             <Category>Titres</Category>
-            {_.map(_.take(filterTitles(characters), 2), (character, index) => (
+            {_.map(_.take(filterTitles(characters), 3), (character, index) => (
               <LinkStyle
                 to={`/titles/${character.title}`}
                 key={index}
@@ -167,7 +174,7 @@ export default function ResultBar({ searchTerm, setSearchTerm }) {
             <Category>Figurines</Category>
             {_.map(_.take(filterCharacters(characters), 5), (character, index) => (
               <LinkStyle
-                to={`/characters/${character.name}`}
+                to={`/characters/${character.title}/${character.name}`}
                 key={index}
                 onClick={() => setSearchTerm('')}
               >
@@ -181,7 +188,10 @@ export default function ResultBar({ searchTerm, setSearchTerm }) {
                           }
                         />
                       </CadreImage>
-                      <Title className="sfr-titre">{character.label}</Title>
+                      <Title className="sfr-titre">
+                        {character.label}{' '}
+                        <span className="small">{character.num && ' #' + character.num}</span>
+                      </Title>
                       <SubTitle className="sfr-stitre">{_.upperCase(character.title)}</SubTitle>
                     </Result>
                   </div>
