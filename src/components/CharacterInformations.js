@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import _ from 'lodash'
 import moment from 'moment'
@@ -22,6 +22,15 @@ export default function TallCharacterCard(props) {
   const [action, setAction] = useState('')
   const [spinnerWish, setSpinnerWish] = useState(false)
   const [spinnerAcquired, setSpinnerAcquired] = useState(false)
+  const [goodIp, setGoodIp] = useState(false)
+
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_GEOLOC_URL).then(function (result) {
+      if (result.data.IPv4 === process.env.REACT_APP_MY_IP) {
+        setGoodIp(true)
+      }
+    })
+  }, [])
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -32,8 +41,8 @@ export default function TallCharacterCard(props) {
     try {
       await axios
         .get(
-          // '/.netlify/functions/update?name=' +
-          'http://localhost:9999/.netlify/functions/update?name=' +
+          process.env.REACT_APP_NETLIFY_FUNCTIONS_URL +
+            '?name=' +
             props.character.name +
             '&' +
             action +
@@ -113,41 +122,47 @@ export default function TallCharacterCard(props) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
-        {!props.character.acquired && (
-          <>
-            <button
-              type="submit"
-              className={`btn ${props.character.wish ? 'btn-danger' : 'btn-primary'}`}
-              onClick={() => setAction('wish')}
-            >
-              {spinnerWish && (
-                <>
-                  <span
-                    className="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  />{' '}
-                </>
-              )}
-              {props.character.wish ? 'Je ne le souhaite plus' : 'Je le souhaite ?'}
-            </button>
-            <br />
-          </>
-        )}
-        <button
-          type="submit"
-          className={`btn ${props.character.acquired ? 'btn-danger' : 'btn-success'}`}
-          onClick={() => setAction('acquired')}
-        >
-          {spinnerAcquired && (
+      {goodIp && (
+        <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+          {!props.character.acquired && (
             <>
-              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />{' '}
+              <button
+                type="submit"
+                className={`btn ${props.character.wish ? 'btn-danger' : 'btn-primary'}`}
+                onClick={() => setAction('wish')}
+              >
+                {spinnerWish && (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    />{' '}
+                  </>
+                )}
+                {props.character.wish ? 'Je ne le souhaite plus' : 'Je le souhaite ?'}
+              </button>
+              <br />
             </>
           )}
-          {props.character.acquired ? 'Je ne le possède plus' : 'Je le possède ?'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            className={`btn ${props.character.acquired ? 'btn-danger' : 'btn-success'}`}
+            onClick={() => setAction('acquired')}
+          >
+            {spinnerAcquired && (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                />{' '}
+              </>
+            )}
+            {props.character.acquired ? 'Je ne le possède plus' : 'Je le possède ?'}
+          </button>
+        </form>
+      )}
     </div>
   )
 }
