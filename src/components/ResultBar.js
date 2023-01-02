@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
-import axios from 'axios'
 
 const GlobaleBar = styled.div`
   top: 78px;
@@ -109,15 +108,7 @@ const SubTitle = styled.span`
   text-overflow: ellipsis;
 `
 
-export default function ResultBar({ searchTerm, setSearchTerm }) {
-  const [characters, setCharacters] = useState(null)
-
-  useEffect(() => {
-    axios.get(process.env.PUBLIC_URL + '/characters.json').then((response) => {
-      setCharacters(response.data.hits)
-    })
-  }, [])
-
+export default function ResultBar({ characters, searchTerm, setSearchTerm }) {
   const filterTitles = (characters) => {
     return _.orderBy(
       _.filter(_.uniqBy(characters, 'title'), (character) => {

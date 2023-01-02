@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 import _ from 'lodash'
 import Banner from '../components/Banner'
 import ListingCards from '../components/ListingCards'
-import axios from 'axios'
+import { useOutletContext } from 'react-router-dom'
 
 export default function Titles() {
-  const [characters, setCharacters] = useState(null)
-
-  useEffect(() => {
-    axios.get(process.env.PUBLIC_URL + '/characters.json').then((response) => {
-      setCharacters(_.orderBy(_.uniqBy(response.data.hits, 'title'), ['title']))
-    })
-  }, [])
+  const [characters] = useOutletContext()
 
   return (
     <>
@@ -24,7 +18,13 @@ export default function Titles() {
         h2="Pour une recherche directement par le titre de votre serie preferee !"
       />
 
-      {characters && <ListingCards type="titles" data={characters} addMarginTop={true} />}
+      {characters && (
+        <ListingCards
+          type="titles"
+          data={_.orderBy(_.uniqBy(characters, 'title'), ['title'])}
+          addMarginTop={true}
+        />
+      )}
 
       {!characters && (
         <div style={{ textAlign: 'center', padding: '50px 0 140px 0' }}>

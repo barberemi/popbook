@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import _ from 'lodash'
-import axios from 'axios'
+import { useOutletContext } from 'react-router-dom'
 
 import { Helmet } from 'react-helmet'
 import Banner from '../components/Banner'
@@ -9,37 +9,39 @@ import ListingCards from '../components/ListingCards'
 import TitleThread from '../components/TitleThread'
 
 export default function Titles() {
-  const [characters, setCharacters] = useState(null)
+  const [characters] = useOutletContext()
+  const [charactersFilter, setCharactersFilter] = useState(null)
   const { name } = useParams()
 
   useEffect(() => {
-    setCharacters(null)
-    axios.get(process.env.PUBLIC_URL + '/characters.json').then((response) => {
-      setCharacters(_.orderBy(_.filter(response.data.hits, { title: name }), ['label']))
-    })
-  }, [name])
+    if (characters) {
+      setCharactersFilter(_.orderBy(_.filter(characters, { title: name }), ['label']))
+    }
+  }, [name, characters])
 
   return (
     <>
       <Helmet>
-        {characters && <title>Pop-Book - {_.upperCase(characters[0].title_label)}</title>}
+        {charactersFilter && (
+          <title>Pop-Book - {_.upperCase(charactersFilter[0].title_label)}</title>
+        )}
       </Helmet>
 
-      {characters && (
+      {charactersFilter && (
         <>
           <Banner
-            h1={_.upperCase(characters[0].title_label)}
+            h1={_.upperCase(charactersFilter[0].title_label)}
             h2="Trouvez la figurine de vos reves"
             banner={name}
           />
           <div className="container mt-4">
-            <TitleThread name={name} titleRegex={_.upperCase(characters[0].title_label)} />
+            <TitleThread name={name} titleRegex={_.upperCase(charactersFilter[0].title_label)} />
           </div>
-          <ListingCards type="oneTitle" title={name} data={characters} addMarginTop={false} />
+          <ListingCards type="oneTitle" title={name} data={charactersFilter} addMarginTop={false} />
         </>
       )}
 
-      {!characters && (
+      {!charactersFilter && (
         <>
           <Banner h1={_.upperCase(name)} h2="Trouvez la figurine de vos reves" banner={name} />
           <div style={{ textAlign: 'center', padding: '50px 0 140px 0' }}>

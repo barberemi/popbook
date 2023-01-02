@@ -34,7 +34,7 @@ const Logo = styled.div`
   display: inline-block;
 `
 
-export default function NavBar() {
+export default function NavBar(props) {
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
@@ -60,7 +60,11 @@ export default function NavBar() {
             <NavBarMenu />
           </div>
           <SearchForm setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
-          <ResultBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+          <ResultBar
+            characters={props.characters}
+            setSearchTerm={setSearchTerm}
+            searchTerm={searchTerm}
+          />
         </div>
       </Navigation>
     </header>

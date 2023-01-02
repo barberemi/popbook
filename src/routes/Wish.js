@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import _ from 'lodash'
-import axios from 'axios'
+import { useOutletContext } from 'react-router-dom'
 
 import { Helmet } from 'react-helmet'
 import Banner from '../components/Banner'
 import ListingCards from '../components/ListingCards'
 
 export default function Acquired() {
-  const [characters, setCharacters] = useState(null)
-
-  useEffect(() => {
-    axios.get(process.env.PUBLIC_URL + '/characters.json').then((response) => {
-      setCharacters(_.orderBy(_.filter(response.data.hits, { wish: true }), ['title', 'label']))
-    })
-  }, [])
+  const [characters] = useOutletContext()
 
   return (
     <>
@@ -25,7 +19,13 @@ export default function Acquired() {
         h2="Pour une idee de cadeau des plus facile !"
       />
 
-      {characters && <ListingCards type="wish" data={characters} addMarginTop={true} />}
+      {characters && (
+        <ListingCards
+          type="wish"
+          data={_.orderBy(_.filter(characters, { wish: true }), ['title', 'label'])}
+          addMarginTop={true}
+        />
+      )}
 
       {!characters && (
         <div style={{ textAlign: 'center', padding: '50px 0 140px 0' }}>
