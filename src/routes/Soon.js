@@ -8,7 +8,7 @@ import Banner from '../components/Banner'
 import ListingCards from '../components/ListingCards'
 
 export default function Soon() {
-  const [characters] = useOutletContext()
+  const { characters } = useOutletContext()
 
   return (
     <>

@@ -6,7 +6,7 @@ import ListingCards from '../components/ListingCards'
 import { useOutletContext } from 'react-router-dom'
 
 export default function Titles() {
-  const [characters] = useOutletContext()
+  const { characters } = useOutletContext()
 
   return (
     <>

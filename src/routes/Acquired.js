@@ -7,7 +7,7 @@ import Banner from '../components/Banner'
 import ListingCards from '../components/ListingCards'
 
 export default function Acquired() {
-  const [characters] = useOutletContext()
+  const { characters, wishAndAcquired } = useOutletContext()
 
   return (
     <>
@@ -16,10 +16,15 @@ export default function Acquired() {
       </Helmet>
       <Banner h1="Les figurines Pop de Aude" h2="Pour visualiser toutes ses figurines !" />
 
-      {characters && (
+      {characters && wishAndAcquired && (
         <ListingCards
           type="acquired"
-          data={_.orderBy(_.filter(characters, { acquired: true }), ['title', 'label'])}
+          data={_.orderBy(
+            _.filter(characters, (character) => {
+              return _.includes(JSON.stringify(wishAndAcquired.acquired), character.name)
+            }),
+            ['title', 'label']
+          )}
           addMarginTop={true}
         />
       )}

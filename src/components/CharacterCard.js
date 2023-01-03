@@ -4,8 +4,9 @@ import _ from 'lodash'
 import moment from 'moment'
 import 'moment/locale/fr'
 import { Link } from 'react-router-dom'
-import LogoPop from '../components/LogoPop'
+import { useOutletContext } from 'react-router-dom'
 
+import LogoPop from '../components/LogoPop'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons'
 import { faCircleCheck as faCircleCheck } from '@fortawesome/free-solid-svg-icons'
@@ -39,6 +40,8 @@ const getLabelFromReleaseDate = (date) => {
 }
 
 export default function CharacterCard(props) {
+  const { wishAndAcquired } = useOutletContext()
+
   return (
     <Link
       to={`/characters/${props.character.title}/${props.character.name}`}
@@ -46,15 +49,19 @@ export default function CharacterCard(props) {
       className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 m-2"
     >
       <Card className="card text-center" style={{ fontFamily: 'Blomberg', padding: 0 }}>
-        {props.character.wish && (
-          <Emote>
-            <FontAwesomeIcon icon={faRegularStar} size="xl" style={{ color: 'orange' }} />
-          </Emote>
-        )}
-        {props.character.acquired && (
-          <Emote>
-            <FontAwesomeIcon icon={faCircleCheck} size="xl" style={{ color: 'green' }} />
-          </Emote>
+        {wishAndAcquired && (
+          <>
+            {_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name) && (
+              <Emote>
+                <FontAwesomeIcon icon={faRegularStar} size="xl" style={{ color: 'orange' }} />
+              </Emote>
+            )}
+            {_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name) && (
+              <Emote>
+                <FontAwesomeIcon icon={faCircleCheck} size="xl" style={{ color: 'green' }} />
+              </Emote>
+            )}
+          </>
         )}
         <div
           style={{

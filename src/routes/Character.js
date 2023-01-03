@@ -10,7 +10,7 @@ import CharacterInformations from '../components/CharacterInformations'
 import CharacterThread from '../components/CharacterThread'
 
 export default function Character() {
-  const [characters] = useOutletContext()
+  const { characters } = useOutletContext()
   const [characterFilter, setCharacterFilter] = useState(null)
   const { name, title } = useParams()
 

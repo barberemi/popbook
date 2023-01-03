@@ -9,7 +9,7 @@ import ListingCards from '../components/ListingCards'
 import TitleThread from '../components/TitleThread'
 
 export default function Titles() {
-  const [characters] = useOutletContext()
+  const { characters } = useOutletContext()
   const [charactersFilter, setCharactersFilter] = useState(null)
   const { name } = useParams()
 

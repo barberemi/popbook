@@ -7,7 +7,7 @@ import Banner from '../components/Banner'
 import ListingCards from '../components/ListingCards'
 
 export default function Acquired() {
-  const [characters] = useOutletContext()
+  const { characters, wishAndAcquired } = useOutletContext()
 
   return (
     <>
@@ -19,10 +19,15 @@ export default function Acquired() {
         h2="Pour une idee de cadeau des plus facile !"
       />
 
-      {characters && (
+      {characters && wishAndAcquired && (
         <ListingCards
           type="wish"
-          data={_.orderBy(_.filter(characters, { wish: true }), ['title', 'label'])}
+          data={_.orderBy(
+            _.filter(characters, (character) => {
+              return _.includes(JSON.stringify(wishAndAcquired.wish), character.name)
+            }),
+            ['title', 'label']
+          )}
           addMarginTop={true}
         />
       )}

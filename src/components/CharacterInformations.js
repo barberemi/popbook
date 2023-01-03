@@ -4,6 +4,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import 'moment/locale/fr'
 import axios from 'axios'
+import { useOutletContext } from 'react-router-dom'
 
 import LogoPop from '../components/LogoPop'
 import { Link } from 'react-router-dom'
@@ -19,6 +20,7 @@ const Titre = styled.h3`
 `
 
 export default function TallCharacterCard(props) {
+  const { wishAndAcquired } = useOutletContext()
   const [action, setAction] = useState('')
   const [spinnerWish, setSpinnerWish] = useState(false)
   const [spinnerAcquired, setSpinnerAcquired] = useState(false)
@@ -35,7 +37,11 @@ export default function TallCharacterCard(props) {
   async function handleSubmit(event) {
     event.preventDefault()
 
-    const champ = action === 'wish' ? props.character.wish : props.character.acquired
+    const champ =
+      action === 'wish'
+        ? _.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)
+        : _.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)
+
     action === 'wish' ? setSpinnerWish(true) : setSpinnerAcquired(true)
 
     try {
@@ -126,11 +132,15 @@ export default function TallCharacterCard(props) {
 
       {goodIp && (
         <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
-          {!props.character.acquired && (
+          {!_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name) && (
             <>
               <button
                 type="submit"
-                className={`btn ${props.character.wish ? 'btn-danger' : 'btn-primary'}`}
+                className={`btn ${
+                  _.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)
+                    ? 'btn-danger'
+                    : 'btn-primary'
+                }`}
                 onClick={() => setAction('wish')}
               >
                 {spinnerWish && (
@@ -142,14 +152,20 @@ export default function TallCharacterCard(props) {
                     />{' '}
                   </>
                 )}
-                {props.character.wish ? 'Je ne le souhaite plus' : 'Je le souhaite ?'}
+                {_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)
+                  ? 'Je ne le souhaite plus'
+                  : 'Je le souhaite ?'}
               </button>
               <br />
             </>
           )}
           <button
             type="submit"
-            className={`btn ${props.character.acquired ? 'btn-danger' : 'btn-success'}`}
+            className={`btn ${
+              _.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)
+                ? 'btn-danger'
+                : 'btn-success'
+            }`}
             onClick={() => setAction('acquired')}
           >
             {spinnerAcquired && (
@@ -161,7 +177,9 @@ export default function TallCharacterCard(props) {
                 />{' '}
               </>
             )}
-            {props.character.acquired ? 'Je ne le possède plus' : 'Je le possède ?'}
+            {_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)
+              ? 'Je ne le possède plus'
+              : 'Je le possède ?'}
           </button>
         </form>
       )}

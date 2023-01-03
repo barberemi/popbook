@@ -53,7 +53,7 @@ export default function ListingCards(props) {
       </div>
       <div className="row justify-content-center">
         {props.type === 'titles' &&
-          _.map(props.data, (character, index) => (
+          _.map(_.take(props.data, 10), (character, index) => (
             <Fragment key={index}>
               <TitleCard title={character.title} title_label={character.title_label} />
             </Fragment>
