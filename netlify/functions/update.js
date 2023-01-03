@@ -7,7 +7,7 @@ exports.handler = async function (event, context) {
   // Récupérer les modifications à apporter au fichier JSON
   if (!_.isEmpty(event.queryStringParameters)) {
     // Lire le fichier JSON existant
-    const oldData = await fs.readFileSync('public/wish_and_acquired.json', 'utf8')
+    const oldData = await fs.readFileSync('./public/wish_and_acquired.json', 'utf8')
 
     // Recuperation du character
     jsonOldData = JSON.parse(oldData)
@@ -16,7 +16,7 @@ exports.handler = async function (event, context) {
 
     if (!_.isEmpty(event.queryStringParameters.wish)) {
       if (event.queryStringParameters.wish === 'true') {
-        if (!_.includes(jsonOldData.wish, { name: event.queryStringParameters.name })) {
+        if (!_.includes(JSON.stringify(jsonOldData.wish), event.queryStringParameters.name)) {
           newWish = { name: event.queryStringParameters.name }
           jsonOldData.wish.push(newWish)
         }
@@ -28,7 +28,7 @@ exports.handler = async function (event, context) {
 
     if (!_.isEmpty(event.queryStringParameters.acquired)) {
       if (event.queryStringParameters.acquired === 'true') {
-        if (!_.includes(jsonOldData.acquired, { name: event.queryStringParameters.name })) {
+        if (!_.includes(JSON.stringify(jsonOldData.acquired), event.queryStringParameters.name)) {
           newAcquired = { name: event.queryStringParameters.name }
           jsonOldData.acquired.push(newAcquired)
         }
@@ -39,7 +39,7 @@ exports.handler = async function (event, context) {
     }
 
     // Écrire le fichier JSON mis à jour
-    await fs.writeFileSync('public/wish_and_acquired.json', JSON.stringify(jsonOldData, null, 4))
+    await fs.writeFileSync('./public/wish_and_acquired.json', JSON.stringify(jsonOldData, null, 4))
   }
 
   // Renvoyer une réponse au client indiquant que les modifications ont été effectuées avec succès ou non
