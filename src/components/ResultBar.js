@@ -108,7 +108,7 @@ const SubTitle = styled.span`
   text-overflow: ellipsis;
 `
 
-export default function ResultBar({ characters, searchTerm, setSearchTerm }) {
+export default function ResultBar({ characters, searchTerm, setSearchTerm, onClick }) {
   const filterTitles = (characters) => {
     return _.orderBy(
       _.filter(_.uniqBy(characters, 'title'), (character) => {
@@ -130,6 +130,11 @@ export default function ResultBar({ characters, searchTerm, setSearchTerm }) {
     )
   }
 
+  const resetPage = () => {
+    setSearchTerm('')
+    onClick
+  }
+
   return (
     <GlobaleBar className="col-11 col-sm-11 col-md-8 col-lg-7">
       <Listing>
@@ -137,11 +142,7 @@ export default function ResultBar({ characters, searchTerm, setSearchTerm }) {
           <>
             <Category>Titres</Category>
             {_.map(_.take(filterTitles(characters), 3), (character, index) => (
-              <LinkStyle
-                to={`/titles/${character.title}`}
-                key={index}
-                onClick={() => setSearchTerm('')}
-              >
+              <LinkStyle to={`/titles/${character.title}`} key={index} onClick={() => resetPage()}>
                 <li>
                   <div className="eac-item" style={{ wordBreak: 'break-all' }}>
                     <Result className="sf-result">
@@ -167,7 +168,7 @@ export default function ResultBar({ characters, searchTerm, setSearchTerm }) {
               <LinkStyle
                 to={`/characters/${character.title}/${character.name}`}
                 key={index}
-                onClick={() => setSearchTerm('')}
+                onClick={() => resetPage()}
               >
                 <li>
                   <div className="eac-item" style={{ wordBreak: 'break-all' }}>

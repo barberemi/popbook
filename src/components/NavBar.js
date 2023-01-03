@@ -36,6 +36,11 @@ const Logo = styled.div`
 
 export default function NavBar(props) {
   const [searchTerm, setSearchTerm] = useState('')
+  const [navOpen, setNavOpen] = useState(false)
+
+  const toggleNav = () => {
+    setNavOpen((state) => !state)
+  }
 
   return (
     <header>
@@ -46,24 +51,29 @@ export default function NavBar(props) {
             <Logo />
           </Link>
           <button
-            className="navbar-toggler"
+            className={navOpen ? 'navbar-toggler' : 'navbar-toggler collapsed'}
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarScroll"
             aria-controls="navbarScroll"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            onClick={toggleNav}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarScroll">
-            <NavBarMenu />
+          <div
+            className={navOpen ? 'collapse navbar-collapse show' : 'collapse navbar-collapse'}
+            id="navbarScroll"
+          >
+            <NavBarMenu onClick={toggleNav} />
           </div>
           <SearchForm setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
           <ResultBar
             characters={props.characters}
             setSearchTerm={setSearchTerm}
             searchTerm={searchTerm}
+            onClick={toggleNav}
           />
         </div>
       </Navigation>

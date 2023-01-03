@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import { Link, useLocation } from 'react-router-dom'
 
-export default function NavBarMenu() {
+export default function NavBarMenu(props) {
   const location = useLocation()
 
   return (
@@ -16,6 +16,7 @@ export default function NavBarMenu() {
           className={`nav-link ${
             location.pathname === '/' || _.includes(location.pathname, '/title') ? 'active' : ''
           }`}
+          onClick={props.onClick}
         >
           TITRES
         </Link>
@@ -24,6 +25,7 @@ export default function NavBarMenu() {
         <Link
           to={`/acquired`}
           className={`nav-link ${_.includes(location.pathname, '/acquired') ? 'active' : ''}`}
+          onClick={props.onClick}
         >
           ACQUIS
         </Link>
@@ -32,6 +34,7 @@ export default function NavBarMenu() {
         <Link
           to={`/wish`}
           className={`nav-link ${_.includes(location.pathname, '/wish') ? 'active' : ''}`}
+          onClick={props.onClick}
         >
           SOUHAITS
         </Link>
@@ -40,6 +43,7 @@ export default function NavBarMenu() {
         <Link
           to={`/soon`}
           className={`nav-link ${_.includes(location.pathname, '/soon') ? 'active' : ''}`}
+          onClick={props.onClick}
         >
           PROCHAINEMENT
         </Link>
