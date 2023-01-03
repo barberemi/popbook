@@ -80,7 +80,9 @@ export default function TallCharacterCard(props) {
         </Link>
       </div>
       <Titre>
-        <span className="badge text-bg-warning text-white">{props.character.label}</span>
+        <span className="badge text-bg-warning text-white">
+          {_.upperCase(props.character.label)}
+        </span>
       </Titre>
 
       <div className="d-flex">

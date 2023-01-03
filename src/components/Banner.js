@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import _ from 'lodash'
 
 import StyledH1 from './StyledH1'
 import StyledH2 from './StyledH2'
@@ -34,8 +35,8 @@ const Header = styled.div`
 export default function Banner(props) {
   return (
     <Header className="col-sm-12 pt-4" banner={props.banner ?? null}>
-      <StyledH1 value={props.h1} />
-      <StyledH2 value={props.h2} />
+      <StyledH1 value={_.upperCase(props.h1)} />
+      <StyledH2 value={_.upperCase(props.h2)} />
     </Header>
   )
 }

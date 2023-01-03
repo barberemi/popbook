@@ -32,7 +32,7 @@ export default function CharacterThread(props) {
           to={`/characters/${props.character.title}/${props.character.name}`}
           className="text-decoration-none text-muted"
         >
-          #{props.character.num} {props.character.label}
+          {props.character.num && '#' + props.character.num} {_.upperCase(props.character.label)}
         </StyledLink>
       </span>
     </div>

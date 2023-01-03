@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import _ from 'lodash'
 
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,7 +22,7 @@ export default function TitleThread(props) {
         </StyledLink>{' '}
         <FontAwesomeIcon icon={faCaretRight} style={{ color: 'orange' }} />{' '}
         <StyledLink to={`/titles/${props.name}`} className="text-decoration-none text-muted">
-          {props.titleRegex}
+          {_.upperCase(props.titleRegex)}
         </StyledLink>
       </span>
     </div>
