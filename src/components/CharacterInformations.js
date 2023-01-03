@@ -130,7 +130,7 @@ export default function TallCharacterCard(props) {
         </div>
       )}
 
-      {goodIp && (
+      {goodIp && wishAndAcquired && (
         <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
           {!_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name) && (
             <>
