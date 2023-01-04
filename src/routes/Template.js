@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import axios from 'axios'
 import charactersJson from './../datasources/characters.json'
 
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
+
+import { db } from '../datasources/firebase'
+import { onValue, ref } from 'firebase/database'
 
 export default function Template() {
   const [wishAndAcquired, setWishAndAcquired] = useState(null)
@@ -16,8 +18,9 @@ export default function Template() {
     }
     setCharacters(JSON.parse(localStorage.getItem('characters')))
 
-    axios.get(process.env.PUBLIC_URL + '/wish_and_acquired.json').then((response) => {
-      setWishAndAcquired(response.data)
+    onValue(ref(db), (snapshot) => {
+      const data = snapshot.val()
+      setWishAndAcquired(data)
     })
   }, [])
 

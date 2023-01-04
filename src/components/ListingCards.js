@@ -22,7 +22,7 @@ export default function ListingCards(props) {
   }, [multiplicateur])
 
   const onScroll = () => {
-    if (window.pageYOffset + 400 >= listInnerRef.current.clientHeight) {
+    if (window.pageYOffset + 700 >= listInnerRef.current.clientHeight) {
       setMultiplicateur(multiplicateur + 1)
     }
   }
@@ -72,32 +72,32 @@ export default function ListingCards(props) {
       </div>
       <div className="row justify-content-center">
         {props.type === 'titles' &&
-          _.map(_.take(props.data, 10 * multiplicateur), (character, index) => (
+          _.map(_.take(props.data, 20 * multiplicateur), (character, index) => (
             <Fragment key={index}>
               <TitleCard title={character.title} title_label={character.title_label} />
             </Fragment>
           ))}
         {props.type === 'acquired' &&
-          _.map(_.take(props.data, 10 * multiplicateur), (character, index) => (
+          _.map(_.take(props.data, 20 * multiplicateur), (character, index) => (
             <Fragment key={index}>
               <CharacterCard character={character} displayLogo={true} />
             </Fragment>
           ))}
         {props.type === 'wish' &&
-          _.map(_.take(props.data, 10 * multiplicateur), (character, index) => (
+          _.map(_.take(props.data, 20 * multiplicateur), (character, index) => (
             <Fragment key={index}>
               <CharacterCard character={character} displayLogo={true} />
             </Fragment>
           ))}
         {props.type === 'soon' &&
-          _.map(_.take(props.data, 10 * multiplicateur), (character, index) => (
+          _.map(_.take(props.data, 20 * multiplicateur), (character, index) => (
             <Fragment key={index}>
               <CharacterCard character={character} displayLogo={true} />
             </Fragment>
           ))}
         {props.type === 'oneTitle' &&
           props.title &&
-          _.map(_.take(props.data, 10 * multiplicateur), (character, index) => (
+          _.map(_.take(props.data, 20 * multiplicateur), (character, index) => (
             <Fragment key={index}>
               <CharacterCard character={character} displayLogo={false} />
             </Fragment>

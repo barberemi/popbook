@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run eslint && wget -nc -cO - https://popbook.netlify.app/wish_and_acquired.json > ./public/wish_and_acquired.json
+npm run eslint

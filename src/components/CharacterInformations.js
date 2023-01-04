@@ -5,6 +5,8 @@ import moment from 'moment'
 import 'moment/locale/fr'
 import axios from 'axios'
 import { useOutletContext } from 'react-router-dom'
+import { db } from '../datasources/firebase'
+import { ref, child, push, update, remove } from 'firebase/database'
 
 import LogoPop from '../components/LogoPop'
 import { Link } from 'react-router-dom'
@@ -21,7 +23,6 @@ const Titre = styled.h3`
 
 export default function TallCharacterCard(props) {
   const { wishAndAcquired } = useOutletContext()
-  const [action, setAction] = useState('')
   const [spinnerWish, setSpinnerWish] = useState(false)
   const [spinnerAcquired, setSpinnerAcquired] = useState(false)
   const [goodIp, setGoodIp] = useState(false)
@@ -34,38 +35,75 @@ export default function TallCharacterCard(props) {
     })
   }, [])
 
-  async function handleSubmit(event) {
-    event.preventDefault()
+  function handleSubmit(type) {
+    const newData = { name: props.character.name }
+    const updates = {}
+    let newPostKey = null
+    let num = null
 
-    const champ =
-      action === 'wish'
-        ? _.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)
-        : _.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)
-
-    action === 'wish' ? setSpinnerWish(true) : setSpinnerAcquired(true)
-
-    try {
-      await axios
-        .get(
-          process.env.REACT_APP_NETLIFY_FUNCTIONS_URL +
-            '?name=' +
-            props.character.name +
-            '&' +
-            action +
-            '=' +
-            !champ
-        )
-        .then(function () {
-          setTimeout(() => {
-            setSpinnerWish(false)
-            setSpinnerAcquired(false)
-          }, 1500)
+    if (type === 'wish') {
+      setSpinnerWish(true)
+      if (!_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)) {
+        // Add on WISH
+        newPostKey = push(child(ref(db), 'wish')).key
+        updates['/wish/' + newPostKey] = newData
+        update(ref(db), updates)
+        if (_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)) {
+          // Remove on ACQUIRED
+          _.forEach(wishAndAcquired.acquired, (aAcquired, index) => {
+            if (_.includes(JSON.stringify(aAcquired), props.character.name)) {
+              num = index
+            }
+          })
+          if (num !== null) {
+            remove(ref(db, 'acquired/' + num))
+          }
+        }
+      } else {
+        // Remove on WISH
+        _.forEach(wishAndAcquired.wish, (aWish, index) => {
+          if (_.includes(JSON.stringify(aWish), props.character.name)) {
+            num = index
+          }
         })
-    } catch (error) {
-      console.error(error) // affiche l'erreur dans la console
+        if (num !== null) {
+          remove(ref(db, 'wish/' + num))
+        }
+      }
+    } else {
+      setSpinnerAcquired(true)
+      if (!_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)) {
+        // Add on ACQUIRED
+        newPostKey = push(child(ref(db), 'acquired')).key
+        updates['/acquired/' + newPostKey] = newData
+        update(ref(db), updates)
+        if (_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)) {
+          // Remove on WISH
+          _.forEach(wishAndAcquired.wish, (aWish, index) => {
+            if (_.includes(JSON.stringify(aWish), props.character.name)) {
+              num = index
+            }
+          })
+          if (num !== null) {
+            remove(ref(db, 'wish/' + num))
+          }
+        }
+      } else {
+        // Remove on ACQUIRED
+        _.forEach(wishAndAcquired.acquired, (aAcquired, index) => {
+          if (_.includes(JSON.stringify(aAcquired), props.character.name)) {
+            num = index
+          }
+        })
+        if (num !== null) {
+          remove(ref(db, 'acquired/' + num))
+        }
+      }
+    }
+    setTimeout(() => {
       setSpinnerWish(false)
       setSpinnerAcquired(false)
-    }
+    }, 1500)
   }
 
   return (
@@ -131,17 +169,17 @@ export default function TallCharacterCard(props) {
       )}
 
       {goodIp && wishAndAcquired && (
-        <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
           {!_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name) && (
             <>
               <button
-                type="submit"
+                type="button"
                 className={`btn ${
                   _.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)
                     ? 'btn-danger'
                     : 'btn-primary'
                 }`}
-                onClick={() => setAction('wish')}
+                onClick={() => handleSubmit('wish')}
               >
                 {spinnerWish && (
                   <>
@@ -160,13 +198,13 @@ export default function TallCharacterCard(props) {
             </>
           )}
           <button
-            type="submit"
+            type="button"
             className={`btn ${
               _.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)
                 ? 'btn-danger'
                 : 'btn-success'
             }`}
-            onClick={() => setAction('acquired')}
+            onClick={() => handleSubmit('acquired')}
           >
             {spinnerAcquired && (
               <>
@@ -181,7 +219,7 @@ export default function TallCharacterCard(props) {
               ? 'Je ne le possède plus'
               : 'Je le possède ?'}
           </button>
-        </form>
+        </div>
       )}
     </div>
   )
