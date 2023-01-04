@@ -51,12 +51,12 @@ export default function CharacterCard(props) {
       <Card className="card text-center" style={{ fontFamily: 'Blomberg', padding: 0 }}>
         {wishAndAcquired && (
           <>
-            {_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name) && (
+            {_.find(wishAndAcquired.wish, { name: props.character.name }) && (
               <Emote>
                 <FontAwesomeIcon icon={faRegularStar} size="xl" style={{ color: 'orange' }} />
               </Emote>
             )}
-            {_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name) && (
+            {_.find(wishAndAcquired.acquired, { name: props.character.name }) && (
               <Emote>
                 <FontAwesomeIcon icon={faCircleCheck} size="xl" style={{ color: 'green' }} />
               </Emote>

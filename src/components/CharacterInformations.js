@@ -43,12 +43,12 @@ export default function TallCharacterCard(props) {
 
     if (type === 'wish') {
       setSpinnerWish(true)
-      if (!_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)) {
+      if (!_.find(wishAndAcquired.wish, { name: props.character.name })) {
         // Add on WISH
         newPostKey = push(child(ref(db), 'wish')).key
         updates['/wish/' + newPostKey] = newData
         update(ref(db), updates)
-        if (_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)) {
+        if (_.find(wishAndAcquired.acquired, { name: props.character.name })) {
           // Remove on ACQUIRED
           _.forEach(wishAndAcquired.acquired, (aAcquired, index) => {
             if (_.includes(JSON.stringify(aAcquired), props.character.name)) {
@@ -72,12 +72,12 @@ export default function TallCharacterCard(props) {
       }
     } else {
       setSpinnerAcquired(true)
-      if (!_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)) {
+      if (!_.find(wishAndAcquired.acquired, { name: props.character.name })) {
         // Add on ACQUIRED
         newPostKey = push(child(ref(db), 'acquired')).key
         updates['/acquired/' + newPostKey] = newData
         update(ref(db), updates)
-        if (_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)) {
+        if (_.find(wishAndAcquired.wish, { name: props.character.name })) {
           // Remove on WISH
           _.forEach(wishAndAcquired.wish, (aWish, index) => {
             if (_.includes(JSON.stringify(aWish), props.character.name)) {
@@ -170,12 +170,12 @@ export default function TallCharacterCard(props) {
 
       {goodIp && wishAndAcquired && (
         <div style={{ textAlign: 'center' }}>
-          {!_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name) && (
+          {!_.find(wishAndAcquired.acquired, { name: props.character.name }) && (
             <>
               <button
                 type="button"
                 className={`btn ${
-                  _.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)
+                  _.find(wishAndAcquired.wish, { name: props.character.name })
                     ? 'btn-danger'
                     : 'btn-primary'
                 }`}
@@ -190,7 +190,7 @@ export default function TallCharacterCard(props) {
                     />{' '}
                   </>
                 )}
-                {_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name)
+                {_.find(wishAndAcquired.wish, { name: props.character.name })
                   ? 'Je ne le souhaite plus'
                   : 'Je le souhaite ?'}
               </button>
@@ -200,7 +200,7 @@ export default function TallCharacterCard(props) {
           <button
             type="button"
             className={`btn ${
-              _.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)
+              _.find(wishAndAcquired.acquired, { name: props.character.name })
                 ? 'btn-danger'
                 : 'btn-success'
             }`}
@@ -215,7 +215,7 @@ export default function TallCharacterCard(props) {
                 />{' '}
               </>
             )}
-            {_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name)
+            {_.find(wishAndAcquired.acquired, { name: props.character.name })
               ? 'Je ne le possède plus'
               : 'Je le possède ?'}
           </button>

@@ -21,7 +21,7 @@ export default function Acquired() {
           type="acquired"
           data={_.orderBy(
             _.filter(characters, (character) => {
-              return _.includes(JSON.stringify(wishAndAcquired.acquired), character.name)
+              return _.find(wishAndAcquired.acquired, { name: character.name })
             }),
             ['title', 'label']
           )}

@@ -21,12 +21,12 @@ export default function TallCharacterCard(props) {
     <div className="card text-center col-6 col-sm-6 col-md-5 col-lg-4 col-xl-3 m-2">
       {wishAndAcquired && (
         <>
-          {_.includes(JSON.stringify(wishAndAcquired.wish), props.character.name) && (
+          {_.find(wishAndAcquired.wish, { name: props.character.name }) && (
             <Emote>
               <FontAwesomeIcon icon={faRegularStar} size="xl" style={{ color: 'orange' }} />
             </Emote>
           )}
-          {_.includes(JSON.stringify(wishAndAcquired.acquired), props.character.name) && (
+          {_.find(wishAndAcquired.acquired, { name: props.character.name }) && (
             <Emote>
               <FontAwesomeIcon icon={faCircleCheck} size="xl" style={{ color: 'green' }} />
             </Emote>
