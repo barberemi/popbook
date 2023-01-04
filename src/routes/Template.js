@@ -13,9 +13,15 @@ export default function Template() {
   const [characters, setCharacters] = useState(null)
 
   useEffect(() => {
+    if (!localStorage.getItem('version')) {
+      localStorage.setItem('version', '2')
+      localStorage.removeItem('characters')
+    }
+
     if (!localStorage.getItem('characters')) {
       localStorage.setItem('characters', JSON.stringify(charactersJson.hits))
     }
+
     setCharacters(JSON.parse(localStorage.getItem('characters')))
 
     onValue(ref(db), (snapshot) => {
