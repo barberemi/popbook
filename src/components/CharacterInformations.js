@@ -29,7 +29,7 @@ export default function TallCharacterCard(props) {
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_GEOLOC_URL).then(function (result) {
-      if (result.data.IPv4 === process.env.REACT_APP_MY_IP) {
+      if (_.includes(process.env.REACT_APP_MY_IP, result.data.IPv4)) {
         setGoodIp(true)
       }
     })
