@@ -13,16 +13,42 @@ export default function Template() {
   const [characters, setCharacters] = useState(null)
 
   useEffect(() => {
-    if (!localStorage.getItem('version')) {
-      localStorage.setItem('version', '2')
+    // Remove old localstorage
+    if (localStorage.getItem('version')) {
+      localStorage.removeItem('version')
+    }
+    if (localStorage.getItem('characters')) {
       localStorage.removeItem('characters')
     }
 
-    if (!localStorage.getItem('characters')) {
-      localStorage.setItem('characters', JSON.stringify(charactersJson.hits))
+    // Add IndexedDB
+    const request = indexedDB.open('popbook', 1)
+
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result
+
+      // Delete if exists
+      if (db.objectStoreNames.contains('characters')) {
+        db.deleteObjectStore('characters')
+      }
+      // Create
+      const objStore = db.createObjectStore('characters', { keyPath: 'name' })
+
+      // Store data
+      charactersJson.hits.forEach((character) => {
+        objStore.put(character)
+      })
     }
 
-    setCharacters(JSON.parse(localStorage.getItem('characters')))
+    request.onsuccess = (event) => {
+      const db = event.target.result.transaction('characters', 'readwrite')
+      const store = db.objectStore('characters')
+      const allCharacters = store.getAll()
+
+      allCharacters.onsuccess = (e) => {
+        setCharacters(e.target.result)
+      }
+    }
 
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val()

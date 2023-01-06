@@ -22,7 +22,7 @@ export default function TitleCard(props) {
         <img
           src={process.env.PUBLIC_URL + '/images/thumbs/' + props.title + '.jpg'}
           alt={'Miniature' + props.title_label}
-          style={{ borderRadius: '3px 3px 0 0' }}
+          style={{ borderRadius: '3px 3px 0 0', maxHeight: '159px' }}
         />
         <div className="card-body">
           <img

@@ -13,7 +13,7 @@ const Header = styled.div`
   height: 150px;
   background-color: #252525;
   background-position: right;
-  background-image: url('${process.env.PUBLIC_URL + '/images/banners/aude-banniere.webp'}');
+  background-image: url('${process.env.PUBLIC_URL + '/images/banners/aude-banniere.jpg'}');
   ${(props) =>
     props.banner &&
     css`
